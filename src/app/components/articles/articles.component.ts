@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {ArticleListeService} from '../../services/article-liste.service';
+import {ArticlesService} from '../../services/articleService/articles.service';
 import {Article} from '../../models/Article';
 
 @Component({
   selector: 'app-article-list',
-  templateUrl: './article-list.component.html',
-  styleUrls: ['./article-list.component.sass']
+  templateUrl: './articles.component.html',
+  styleUrls: ['./articles.component.sass']
 })
 export class ArticleListComponent implements OnInit {
   articleList: Article[];
 
-  constructor(private articleListService: ArticleListeService) {
+  constructor(private articleListService: ArticlesService) {
   }
 
   ngOnInit() {

@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Article} from '../models/Article';
+
 import {Observable} from 'rxjs';
+import {Article} from '../../models/Article';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ArticleListeService {
-  url: string = 'http://localhost:8081/artikels';
+export class ArticlesService {
+  url = 'http://localhost:8081/artikels';
 
   constructor(private http: HttpClient) {
   }

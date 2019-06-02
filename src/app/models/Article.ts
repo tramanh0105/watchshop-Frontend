@@ -2,11 +2,11 @@ export class Article {
   id: number;
   preis: number;
   beschreibung: string;
-  hetsteller: string;
+  hersteller: string;
 
-  constructor(preis: number, beschreibung: string, hetsteller: string) {
+  constructor(preis: number, beschreibung: string, hersteller: string) {
     this.preis = preis;
     this.beschreibung = beschreibung;
-    this.hetsteller = hetsteller;
+    this.hersteller = hersteller;
   }
 }
