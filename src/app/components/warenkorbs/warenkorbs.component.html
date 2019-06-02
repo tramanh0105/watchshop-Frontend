@@ -1,2 +1,6 @@
-<app-warenkorb *ngFor="let warenkorb of warenkorbs"  [warenkorbItem] = "warenkorb" ></app-warenkorb>
-<div>Gesamt Preis :{{total}}</div>
+<div *ngIf="user !== undefined">
+  User {{ user.benutzerName }}
+  <p *ngFor="let warenkorb of warenkorbs">
+    {{ warenkorb.artikel.beschreibung }} {{ warenkorb.artikel.hersteller }} {{ warenkorb.artikel.preis }} euro, {{ warenkorb.anzahl }} items
+  </p>
+</div>

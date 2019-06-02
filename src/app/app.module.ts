@@ -4,8 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
-import { ArticleListComponent } from './components/articles/articles.component';
-import { ArticleItemComponent } from './components/article-item/article-item.component';
+import { ArticleListComponent } from './components/artikels/artikels.component';
+import { ArtikelItemComponent } from './components/artikel-item/artikel-item.component';
 import { WarenkorbsComponent } from './components/warenkorbs/warenkorbs.component';
 import { WarenkorbItemComponent } from './components/warenkorb/warenkorbItem.component';
 
@@ -13,7 +13,7 @@ import { WarenkorbItemComponent } from './components/warenkorb/warenkorbItem.com
   declarations: [
     AppComponent,
     ArticleListComponent,
-    ArticleItemComponent,
+    ArtikelItemComponent,
     WarenkorbsComponent,
     WarenkorbItemComponent
   ],

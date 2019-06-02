@@ -1,16 +1,16 @@
 import {Bestellung} from './Bestellung';
-import {Article} from './Article';
+import {Artikel} from './Artikel';
 
 export class Bestellposition {
   id: number;
   bestellung: Bestellung;
-  article: Article;
+  artikel: Artikel;
   anzahl: number;
 
 
-  constructor(id: number, bestellung: Bestellung, article: Article) {
+  constructor(id: number, bestellung: Bestellung, artikel: Artikel) {
     this.id = id;
     this.bestellung = bestellung;
-    this.article = article;
+    this.artikel = artikel;
   }
 }

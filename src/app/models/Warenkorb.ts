@@ -1,15 +1,15 @@
-import {Article} from './Article';
+import {Artikel} from './Artikel';
 import {User} from './User';
 
 export class Warenkorb {
   id: number;
   user: User;
-  article: Article;
+  artikel: Artikel;
   anzahl: number;
 
-  constructor(user: User, article: Article, anzahl: number) {
+  constructor(user: User, artikel: Artikel, anzahl: number) {
     this.user = user;
-    this.article = article;
+    this.artikel = artikel;
     this.anzahl = anzahl;
   }
 }
