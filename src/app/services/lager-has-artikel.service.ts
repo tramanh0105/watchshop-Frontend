@@ -30,9 +30,9 @@ export class LagerHasArtikelService {
     return this.http.post<LagerHasArtikel>(newUrL, null);
   }
 
-  updateBestand(artikelId: number, lagerId: number, bestand: number) {
+  updateBestand(artikelId: number, lagerId: number, bestand: number):Observable<LagerHasArtikel> {
     const newUrl = `${this.url}/lagers/${lagerId}/${bestand}`;
-    return this.http.put(newUrl, null);
+    return this.http.put<LagerHasArtikel>(newUrl, null);
   }
 
 }
