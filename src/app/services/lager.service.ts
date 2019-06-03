@@ -17,20 +17,39 @@ export class LagerService {
     return this.http.get<Lager[]>(this.url);
   }
 
+  /**
+   * create new Lager
+   * @param newLager
+   */
   createLager(newLager: Lager): Observable<Lager> {
-    return null;
+    return this.http.put<Lager>(this.url, newLager);
+
   }
 
+  /**
+   * getLager by LagerId
+   * @param lagerId
+   */
   getLagerById(lagerId: number): Observable<Lager> {
-    return null;
+    const newUrl = `${this.url}/${lagerId}`;
+    return this.http.get<Lager>(newUrl);
   }
 
+  /**
+   *update lager
+   */
   updateLager(lagerId: number, updatedLager: Lager): Observable<Lager> {
-    return null;
+    const newUrl = '${this.url}/${lagerId}';
+    return this.http.put<Lager>(newUrl, updatedLager);
   }
 
+  /**
+   * delete Lager
+   * @param lagerId
+   */
   deleteLager(lagerId: number): Observable<Lager> {
-    return null;
+    const newUrl = '${this.url}/${lagerId}';
+    return this.http.delete<Lager>(newUrl);
   }
 
 }
