@@ -19,7 +19,6 @@ export class LagerService {
 
   /**
    * create new Lager
-   * @param newLager
    */
   createLager(newLager: Lager): Observable<Lager> {
     return this.http.put<Lager>(this.url, newLager);
@@ -28,7 +27,6 @@ export class LagerService {
 
   /**
    * getLager by LagerId
-   * @param lagerId
    */
   getLagerById(lagerId: number): Observable<Lager> {
     const newUrl = `${this.url}/${lagerId}`;
@@ -36,19 +34,18 @@ export class LagerService {
   }
 
   /**
-   *update lager
+   * update lager
    */
   updateLager(lagerId: number, updatedLager: Lager): Observable<Lager> {
-    const newUrl = '${this.url}/${lagerId}';
+    const newUrl = `${this.url}/${lagerId}`;
     return this.http.put<Lager>(newUrl, updatedLager);
   }
 
   /**
    * delete Lager
-   * @param lagerId
    */
   deleteLager(lagerId: number): Observable<Lager> {
-    const newUrl = '${this.url}/${lagerId}';
+    const newUrl = `${this.url}/${lagerId}`;
     return this.http.delete<Lager>(newUrl);
   }
 
