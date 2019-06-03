@@ -34,7 +34,7 @@ export class BestellungService {
   }
 
   createBestellung(userId: number): Observable<Bestellung> {
-    const newUrl = `${this.url}/bestellungs/${bestellungId}`;
+    const newUrl = `${this.url}/bestellungs/${userId}`;
     return this.http.post<Bestellung>(newUrl, null);
   }
 
