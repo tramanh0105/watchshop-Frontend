@@ -1,13 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
-import { ArticleListComponent } from './components/artikels/artikels.component';
-import { ArtikelItemComponent } from './components/artikel-item/artikel-item.component';
-import { WarenkorbsComponent } from './components/warenkorbs/warenkorbs.component';
-import { WarenkorbItemComponent } from './components/warenkorb/warenkorbItem.component';
+import {ArticleListComponent} from './components/artikels/artikels.component';
+import {ArtikelItemComponent} from './components/artikel-item/artikel-item.component';
+import {WarenkorbsComponent} from './components/warenkorbs/warenkorbs.component';
+import {WarenkorbItemComponent} from './components/warenkorb/warenkorbItem.component';
+import {BestellungComponent} from './components/bestellung/bestellung.component';
+import { BestellpositionComponent } from './components/bestellposition/bestellposition.component';
+
 
 @NgModule({
   declarations: [
@@ -15,7 +18,10 @@ import { WarenkorbItemComponent } from './components/warenkorb/warenkorbItem.com
     ArticleListComponent,
     ArtikelItemComponent,
     WarenkorbsComponent,
-    WarenkorbItemComponent
+    WarenkorbItemComponent,
+    BestellungComponent,
+    BestellpositionComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -25,4 +31,5 @@ import { WarenkorbItemComponent } from './components/warenkorb/warenkorbItem.com
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
