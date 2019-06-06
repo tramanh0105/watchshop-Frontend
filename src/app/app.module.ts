@@ -9,9 +9,11 @@ import {ArtikelItemComponent} from './components/artikel-item/artikel-item.compo
 import {WarenkorbsComponent} from './components/warenkorbs/warenkorbs.component';
 import {WarenkorbItemComponent} from './components/warenkorb/warenkorbItem.component';
 import {BestellungComponent} from './components/bestellung/bestellung.component';
-import { BestellpositionComponent } from './components/bestellposition/bestellposition.component';
-import { UserComponent } from './components/user/user.component';
-import { AdresseComponent } from './components/adresse/adresse.component';
+import {BestellpositionComponent} from './components/bestellposition/bestellposition.component';
+import {UserComponent} from './components/user/user.component';
+import {AdresseComponent} from './components/adresse/adresse.component';
+import { LagersComponent } from './components/lagers/lagers.component';
+import { LagerHasArtikelComponent } from './components/lager-has-artikel/lager-has-artikel.component';
 
 
 @NgModule({
@@ -25,6 +27,9 @@ import { AdresseComponent } from './components/adresse/adresse.component';
     BestellpositionComponent,
     UserComponent,
     AdresseComponent,
+    LagersComponent,
+    LagerHasArtikelComponent,
+
 
   ],
   imports: [
