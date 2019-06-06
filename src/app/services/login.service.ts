@@ -14,18 +14,25 @@ export class LoginService {
   currentUser = this.userSource.asObservable();
 
   constructor(private http: HttpClient, private userService: UserService) {
+    this.readCurrentUserFromSession();
   }
 
-  // getCurrentUser(): Observable<User> {
-  //   return this.currentUser;
-  // }
-
-  // Demo
-  getCurrentUser(): Observable<User> {
-    return this.userService.getUserById(1);
+  private readCurrentUserFromSession() {
+    const userId = this.readUserIdFromSession();
+    if (userId) {
+      this.userService.getUserById(userId).subscribe(userFromServer => {
+        this.userSource.next(userFromServer);
+      });
+    } else {
+      this.userSource.next(null);
+    }
   }
 
-  login(userLogin: UserLogin): Observable<User> {
+  public getCurrentUser(): Observable<User> {
+    return this.currentUser;
+  }
+
+  public login(userLogin: UserLogin) {
     this.http.post<User>(this.url, userLogin).subscribe(foundUser => {
 
       if (foundUser) {
@@ -36,19 +43,17 @@ export class LoginService {
         console.log('not found');
       }
     });
-
-    return null;
   }
 
   private saveUserIdToSession(id: number) {
     sessionStorage.setItem('userId', JSON.stringify(id));
   }
 
-  public readUserIdFromSession(): Observable<number> {
-    return of(JSON.parse(sessionStorage.getItem('userId')));
+  private readUserIdFromSession(): number {
+    return JSON.parse(sessionStorage.getItem('userId'));
   }
 
-  deleteUserIdFromSession() {
+  public deleteUserIdFromSession() {
     sessionStorage.removeItem('userId');
     this.userSource.next(null);
   }

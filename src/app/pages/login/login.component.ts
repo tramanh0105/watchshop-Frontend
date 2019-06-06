@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {UserLogin} from '../../models/UserLogin';
 import {LoginService} from '../../services/login.service';
 import {User} from '../../models/User';
-import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +13,7 @@ export class LoginComponent implements OnInit {
   userId: number;
   currentUser: User;
 
-  constructor(private loginService: LoginService, private userService: UserService) {
+  constructor(private loginService: LoginService) {
   }
 
   ngOnInit() {
@@ -24,7 +23,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log(this.userLogin.userName + this.userLogin.password);
     this.loginService.login(this.userLogin);
   }
 

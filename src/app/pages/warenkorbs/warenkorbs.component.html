@@ -11,13 +11,15 @@
     </thead>
 
     <tbody>
-    <tr *ngFor="let warenkorb of warenkorbs">
+    <tr *ngFor="let warenkorb of warenkorbs; let i = index">
       <td>{{ warenkorb.artikel.beschreibung }}</td>
       <td>
-        <form class="form-inline">
-          <input type="number" [value]="warenkorb.anzahl" class="form-control w-25 mr-2" >
-          <button class="btn btn-info" (click)="onConfirm(warenkorb)">Confirm</button>
-        </form>
+        <div class="input-group">
+          <input type="number" class="form-control" [value]="warenkorb.anzahl" [(ngModel)]="newAnzahlen[i]">
+          <div class="input-group-append">
+            <button class="btn btn-info" (click)="onConfirm(i)">Confirm</button>
+          </div>
+        </div>
       </td>
       <td>{{ warenkorb.artikel.preis }} Euro</td>
       <td>{{ warenkorb.artikel.preis * warenkorb.anzahl }} Euro</td>
@@ -26,18 +28,3 @@
   </table>
   <h3>Total Price: {{ totalPreis }} Euro</h3>
 </section>
-
-<!--<section class="container" *ngIf="currentUser">-->
-<!--  <div class="row justify-content-end">-->
-<!--    <div class="col-md-4 col-sm-6 p-3" *ngFor="let warenkorb of warenkorbs">-->
-<!--      <div class="card">-->
-<!--        <div class="card-body">-->
-<!--          <h5 class="card-title">{{ warenkorb.artikel.beschreibung | titlecase }}</h5>-->
-<!--          <p>{{ warenkorb.anzahl }}</p>-->
-<!--          <p>{{ warenkorb.artikel.preis }} Euro</p>-->
-<!--          <p>{{ warenkorb.artikel.preis * warenkorb.anzahl }} Euro</p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</section>-->

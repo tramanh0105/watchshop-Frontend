@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {User} from '../../models/User';
+import {LoginService} from '../../services/login.service';
 
 
 @Component({
@@ -9,15 +10,12 @@ import {User} from '../../models/User';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-  user: User;
+  currentUser: User;
 
-  constructor(private userService: UserService) {
+  constructor(private loginService: LoginService) {
   }
 
   ngOnInit() {
-    this.userService.getUserById(1).subscribe(userFromServer => {
-      console.log(userFromServer);
-    });
   }
 
 }

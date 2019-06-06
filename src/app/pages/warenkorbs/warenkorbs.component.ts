@@ -6,6 +6,7 @@ import {of} from 'rxjs';
 import {Artikel} from '../../models/Artikel';
 import {User} from '../../models/User';
 import {LoginService} from '../../services/login.service';
+import index from '@angular/cli/lib/cli';
 
 @Component({
   selector: 'app-warenkorbs',
@@ -16,7 +17,7 @@ export class WarenkorbsComponent implements OnInit {
   warenkorbs: Warenkorb[];
   currentUser: User;
   totalPreis = 0;
-  newAnzahl: number;
+  newAnzahlen: number[] = [];
 
 
   constructor(private warenkorbService: WarenkorbService, private loginService: LoginService) {
@@ -35,6 +36,9 @@ export class WarenkorbsComponent implements OnInit {
 
           // Calc total preis
           this.calcTotalPreis();
+
+          // Initialize newAnzahlen
+          this.warenkorbs.forEach(w => this.newAnzahlen.push(w.anzahl));
         });
       }
     });
@@ -45,8 +49,7 @@ export class WarenkorbsComponent implements OnInit {
     this.warenkorbs.forEach(w => this.totalPreis += w.anzahl * w.artikel.preis);
   }
 
-  onConfirm(warenkorb: Warenkorb) {
-    console.log(warenkorb);
-    console.log(this.newAnzahl);
+  onConfirm(i: number) {
+    console.log(this.newAnzahlen[i]);
   }
 }
