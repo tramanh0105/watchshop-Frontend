@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Bestellung} from '../../models/Bestellung';
 import {User} from '../../models/User';
 import {BestellungService} from '../../services/bestellung.service';
+import {LoginService} from '../../services/login.service';
 
 @Component({
   selector: 'app-bestellung',
@@ -10,19 +11,24 @@ import {BestellungService} from '../../services/bestellung.service';
 })
 export class BestellungComponent implements OnInit {
   bestellungs: Bestellung[];
-  // bestellpositions: Bestellposition[];
-  user: User;
+  currentUser: User;
 
-  constructor(private bestellungService: BestellungService) {
+
+  constructor(private bestellungService: BestellungService, private loginService: LoginService) {
   }
 
   ngOnInit() {
-    //getting Bestellungs of user 2 back
-    this.bestellungService.getBestellungsByUser(2).subscribe(bestellungsFromServer => {
-        this.bestellungs = bestellungsFromServer;
-        this.user = this.bestellungs[0].user;
+
+    this.loginService.getCurrentUser().subscribe(currentUser => {
+      this.currentUser = currentUser;
+      console.log(currentUser);
+      if (this.currentUser) {
+        this.bestellungService.getBestellungsByUserId(this.currentUser.id).subscribe(bestellungsFromServer => {
+          this.bestellungs = bestellungsFromServer;
+          console.log(this.bestellungs);
+        });
       }
-    );
+    });
 
   }
 

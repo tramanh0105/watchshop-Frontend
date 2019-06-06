@@ -9,12 +9,17 @@ import {Artikel} from '../../models/Artikel';
 })
 export class ArticlesComponent implements OnInit {
 
+  artikels: Artikel[];
 
   constructor(private articleService: ArtikelService) {
   }
 
   ngOnInit() {
-    this.articleService.getArtikels().subscribe(artikels => console.log(artikels));
+    this.articleService.getArtikels().subscribe(artikels => {
+
+      this.artikels = artikels;
+      console.log(this.artikels);
+    });
   }
 
 }

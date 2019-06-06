@@ -20,8 +20,8 @@ export class BestellungService {
     return this.http.get<Bestellung[]>(newUrl);
   }
 
-  getBestellungsByUser(userId: number): Observable<Bestellung[]> {
-    const newUrl = `${this.url} / users /${userId}/bestellungs`;
+  getBestellungsByUserId(userId: number): Observable<Bestellung[]> {
+    const newUrl = `${this.url}/users/${userId}/bestellungs`;
     return this.http.get<Bestellung[]>(newUrl);
   }
 
@@ -29,7 +29,7 @@ export class BestellungService {
    * find Bestellung by Id
    */
   findBestellungById(bestellungId: number): Observable<Bestellung> {
-    const newUrl = `${this.url} / bestellungs /${bestellungId}`;
+    const newUrl = `${this.url}/bestellungs/${bestellungId}`;
     return this.http.get<Bestellung>(newUrl);
   }
 
