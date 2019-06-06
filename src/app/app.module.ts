@@ -11,6 +11,7 @@ import {WarenkorbItemComponent} from './components/warenkorb/warenkorbItem.compo
 import {BestellungComponent} from './components/bestellung/bestellung.component';
 import { BestellpositionComponent } from './components/bestellposition/bestellposition.component';
 import { UserComponent } from './components/user/user.component';
+import { AdresseComponent } from './components/adresse/adresse.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { UserComponent } from './components/user/user.component';
     BestellungComponent,
     BestellpositionComponent,
     UserComponent,
+    AdresseComponent,
 
   ],
   imports: [
