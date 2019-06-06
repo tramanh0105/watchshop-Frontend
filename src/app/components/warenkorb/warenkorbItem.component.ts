@@ -4,7 +4,7 @@ import {Warenkorb} from '../../models/Warenkorb';
 @Component({
   selector: 'app-warenkorb',
   templateUrl: './warenkorbItem.component.html',
-  styleUrls: ['./warenkorbItem.component.sass']
+  styleUrls: ['./warenkorbItem.component.scss']
 })
 export class WarenkorbItemComponent implements OnInit {
   @Input() warenkorbItem: Warenkorb;

@@ -6,7 +6,7 @@ import {Bestellung} from '../../models/Bestellung';
 @Component({
   selector: 'app-bestellposition',
   templateUrl: './bestellposition.component.html',
-  styleUrls: ['./bestellposition.component.sass']
+  styleUrls: ['./bestellposition.component.scss']
 })
 export class BestellpositionComponent implements OnInit {
   bestellpositions: Bestellposition[];

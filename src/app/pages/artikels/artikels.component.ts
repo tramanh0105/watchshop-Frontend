@@ -3,20 +3,18 @@ import {ArtikelService} from '../../services/artikel.service';
 import {Artikel} from '../../models/Artikel';
 
 @Component({
-  selector: 'app-article-list',
+  selector: 'app-artikels',
   templateUrl: './artikels.component.html',
-  styleUrls: ['./artikels.component.sass']
+  styleUrls: ['./artikels.component.scss']
 })
-export class ArticleListComponent implements OnInit {
-  artikels: Artikel[];
+export class ArticlesComponent implements OnInit {
+
 
   constructor(private articleService: ArtikelService) {
   }
 
   ngOnInit() {
-    this.articleService.getArtikels().subscribe(articleFromServer => {
-      this.artikels = articleFromServer;
-    });
+    this.articleService.getArtikels().subscribe(artikels => console.log(artikels));
   }
 
 }

@@ -5,7 +5,7 @@ import {User} from '../../models/User';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.sass']
+  styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
   user: User;
@@ -14,8 +14,9 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
-    //get back user 2
-    this.userService.getUserById(2).subscribe(userFromServer => this.user = userFromServer);
+    this.userService.getUserById(1).subscribe(userFromServer => {
+      console.log(userFromServer);
+    });
   }
 
 }

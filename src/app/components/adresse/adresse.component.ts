@@ -7,7 +7,7 @@ import {User} from '../../models/User';
 @Component({
   selector: 'app-adresse',
   templateUrl: './adresse.component.html',
-  styleUrls: ['./adresse.component.sass']
+  styleUrls: ['./adresse.component.scss']
 })
 export class AdresseComponent implements OnInit {
   adresse: Adresse;

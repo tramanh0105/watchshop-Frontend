@@ -5,7 +5,7 @@ import {Lager} from '../../models/Lager';
 @Component({
   selector: 'app-lagers',
   templateUrl: './lagers.component.html',
-  styleUrls: ['./lagers.component.sass']
+  styleUrls: ['./lagers.component.scss']
 })
 export class LagersComponent implements OnInit {
   @Input() lagers: Lager[];

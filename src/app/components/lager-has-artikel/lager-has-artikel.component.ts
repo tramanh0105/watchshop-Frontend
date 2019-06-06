@@ -7,7 +7,7 @@ import {Artikel} from '../../models/Artikel';
 @Component({
   selector: 'app-lager-has-artikel',
   templateUrl: './lager-has-artikel.component.html',
-  styleUrls: ['./lager-has-artikel.component.sass']
+  styleUrls: ['./lager-has-artikel.component.scss']
 })
 export class LagerHasArtikelComponent implements OnInit {
   @Input() artikel: Artikel;

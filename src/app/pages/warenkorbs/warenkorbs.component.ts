@@ -9,7 +9,7 @@ import {User} from '../../models/User';
 @Component({
   selector: 'app-warenkorbs',
   templateUrl: './warenkorbs.component.html',
-  styleUrls: ['./warenkorbs.component.sass']
+  styleUrls: ['./warenkorbs.component.scss']
 })
 export class WarenkorbsComponent implements OnInit {
   warenkorbs: Warenkorb[];

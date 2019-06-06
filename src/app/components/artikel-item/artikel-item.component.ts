@@ -4,7 +4,7 @@ import {Artikel} from '../../models/Artikel';
 @Component({
   selector: 'app-article-item',
   templateUrl: './artikel-item.component.html',
-  styleUrls: ['./artikel-item.component.sass']
+  styleUrls: ['./artikel-item.component.scss']
 })
 export class ArtikelItemComponent implements OnInit {
   @Input() artikel: Artikel;

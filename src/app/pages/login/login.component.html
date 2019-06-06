@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row" *ngIf="!currentUser">
+    <div class="col-md-6 offset-3 mt-5">
+      <form (ngSubmit)="onSubmit()">
+        <label for="userName">User Name</label>
+        <input type="text" placeholder="User Name..." class="form-control mb-2" id="userName" name="userName" [(ngModel)]="userLogin.userName">
+
+        <label for="password">Password</label>
+        <input type="password" placeholder="password..." class="form-control mb-2" id="password" name="password" [(ngModel)]="userLogin.password">
+
+        <input type="submit" class="btn btn-primary mb-2 btn-block" routerLink="/login">
+      </form>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="currentUser">
+    <div class="col-md-6 offset-3 mt-5">
+      <h4>{{ currentUser.benutzerName }} already logged in... </h4>
+    </div>
+  </div>
+</div>

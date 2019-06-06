@@ -6,7 +6,7 @@ import {BestellungService} from '../../services/bestellung.service';
 @Component({
   selector: 'app-bestellung',
   templateUrl: './bestellung.component.html',
-  styleUrls: ['./bestellung.component.sass']
+  styleUrls: ['./bestellung.component.scss']
 })
 export class BestellungComponent implements OnInit {
   bestellungs: Bestellung[];
