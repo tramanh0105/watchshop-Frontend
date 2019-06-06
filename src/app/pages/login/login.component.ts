@@ -18,21 +18,17 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginService.readUserIdFromSession().subscribe(userId => {
-      this.userId = userId;
-
-      if (this.userId) {
-        // this.userService.getUserById(1).subscribe(userFromServer => {
-        //   this.currentUser = userFromServer;
-        // });
-      } else {
-        this.currentUser = new User('', '', '', '', null);
-      }
+    this.loginService.getCurrentUser().subscribe(currentUser => {
+      this.currentUser = currentUser;
     });
   }
 
   onSubmit() {
-    console.log(this.userLogin.userName + this.userLogin.password);
+    // console.log(this.userLogin.userName + this.userLogin.password);
     this.loginService.login(this.userLogin);
+  }
+
+  onLogout() {
+    this.loginService.deleteUserIdFromSession();
   }
 }

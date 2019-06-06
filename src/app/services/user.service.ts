@@ -7,28 +7,13 @@ import {User} from '../models/User';
   providedIn: 'root'
 })
 export class UserService {
-  url = `http://localhost:8081`;
+  url = 'http://localhost:8081/users';
 
   constructor(private http: HttpClient) {
   }
 
-  getUsers(): Observable<User[]> {
-    const newUrl = `${this.url}/users`;
-    return this.http.get<User[]>(newUrl);
-  }
-
   getUserById(userId: number): Observable<User> {
-    const newUrl = `${this.url}/users/${userId}`;
-    return this.http.get<User>(this.url);
-  }
-
-  updateUser(user: User, userId: number): Observable<User> {
-    const newUrl = `${this.url}/users/${userId}`;
-    return this.http.put<User>(newUrl, null);
-  }
-
-  deleteUser(userId: number): Observable<User> {
-    const newUrl = `${this.url}//users/${userId}`;
-    return this.http.delete<User>(newUrl);
+    const newUrl = `${this.url}/${userId}`;
+    return this.http.get<User>(newUrl);
   }
 }

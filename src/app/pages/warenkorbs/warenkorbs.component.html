@@ -1,6 +1,5 @@
-<div *ngIf="user !== undefined">
-  User {{ user.benutzerName }}
-  <p *ngFor="let warenkorb of warenkorbs">
-    {{ warenkorb.artikel.beschreibung }} {{ warenkorb.artikel.hersteller }} {{ warenkorb.artikel.preis }} euro, {{ warenkorb.anzahl }} items
-  </p>
-</div>
+<section *ngIf="currentUser">
+  <div *ngFor="let warenkorb of warenkorbs">
+    <p>{{ warenkorb.artikel.beschreibung }} {{ warenkorb.artikel.preis }} Euro {{ warenkorb.anzahl }}</p>
+  </div>
+</section>

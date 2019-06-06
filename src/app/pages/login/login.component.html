@@ -16,6 +16,7 @@
   <div class="row" *ngIf="currentUser">
     <div class="col-md-6 offset-3 mt-5">
       <h4>{{ currentUser.benutzerName }} already logged in... </h4>
+      <button class="btn btn-danger" (click)="onLogout()" routerLink="/login">Log Out</button>
     </div>
   </div>
 </div>

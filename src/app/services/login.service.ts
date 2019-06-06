@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {UserLogin} from '../models/UserLogin';
-import {Observable, of} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {User} from '../models/User';
 
 @Injectable({
@@ -9,14 +9,26 @@ import {User} from '../models/User';
 })
 export class LoginService {
   url = 'http://localhost:8081/login';
+  userSource = new BehaviorSubject<User>(null);
+  currentUser = this.userSource.asObservable();
 
   constructor(private http: HttpClient) {
   }
 
+  getCurrentUser(): Observable<User> {
+    return this.currentUser;
+  }
+
   login(userLogin: UserLogin): Observable<User> {
     this.http.post<User>(this.url, userLogin).subscribe(foundUser => {
-      console.log(foundUser);
-      this.saveUserIdToSession(foundUser.id);
+
+      if (foundUser) {
+        console.log('User from server: ' + foundUser.benutzerName);
+        this.saveUserIdToSession(foundUser.id);
+        this.userSource.next(foundUser);
+      } else {
+        console.log('not found');
+      }
     });
 
     return null;
@@ -28,5 +40,10 @@ export class LoginService {
 
   public readUserIdFromSession(): Observable<number> {
     return of(JSON.parse(sessionStorage.getItem('userId')));
+  }
+
+  deleteUserIdFromSession() {
+    sessionStorage.removeItem('userId');
+    this.userSource.next(null);
   }
 }

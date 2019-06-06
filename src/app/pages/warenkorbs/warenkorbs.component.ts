@@ -5,6 +5,7 @@ import {WarenkorbService} from '../../services/warenkorb.service';
 import {of} from 'rxjs';
 import {Artikel} from '../../models/Artikel';
 import {User} from '../../models/User';
+import {LoginService} from '../../services/login.service';
 
 @Component({
   selector: 'app-warenkorbs',
@@ -13,17 +14,26 @@ import {User} from '../../models/User';
 })
 export class WarenkorbsComponent implements OnInit {
   warenkorbs: Warenkorb[];
-  user: User;
+  currentUser: User;
 
-  constructor(private warenkorbService: WarenkorbService) {
+
+  constructor(private warenkorbService: WarenkorbService, private loginService: LoginService) {
   }
 
   ngOnInit() {
-    // Example: userId = 2
-    this.warenkorbService.getWarenkorbsByUserId(2).subscribe(warenkorbsFromServer => {
-      this.warenkorbs = warenkorbsFromServer;
-      this.user = this.warenkorbs[0].user;
-      console.log(this.warenkorbs);
+    this.loginService.getCurrentUser().subscribe(currentUser => {
+      // Set Current User
+      this.currentUser = currentUser;
+
+      //  Get Warenkorb from server
+      if (this.currentUser) {
+        this.warenkorbService.getWarenkorbsByUserId(this.currentUser.id).subscribe(warenkorbsFromServer => {
+          this.warenkorbs = warenkorbsFromServer;
+          console.log(this.warenkorbs);
+        });
+      }
     });
+
+
   }
 }
