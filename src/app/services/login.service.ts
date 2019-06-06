@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {UserLogin} from '../models/UserLogin';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {User} from '../models/User';
+import {UserService} from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,16 @@ export class LoginService {
   userSource = new BehaviorSubject<User>(null);
   currentUser = this.userSource.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private userService: UserService) {
   }
 
+  // getCurrentUser(): Observable<User> {
+  //   return this.currentUser;
+  // }
+
+  // Demo
   getCurrentUser(): Observable<User> {
-    return this.currentUser;
+    return this.userService.getUserById(1);
   }
 
   login(userLogin: UserLogin): Observable<User> {

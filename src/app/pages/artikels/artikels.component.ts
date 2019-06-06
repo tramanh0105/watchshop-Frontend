@@ -8,8 +8,8 @@ import {Artikel} from '../../models/Artikel';
   styleUrls: ['./artikels.component.scss']
 })
 export class ArticlesComponent implements OnInit {
-
   artikels: Artikel[];
+
 
   constructor(private articleService: ArtikelService) {
   }

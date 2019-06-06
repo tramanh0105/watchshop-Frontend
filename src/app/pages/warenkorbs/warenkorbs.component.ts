@@ -15,6 +15,8 @@ import {LoginService} from '../../services/login.service';
 export class WarenkorbsComponent implements OnInit {
   warenkorbs: Warenkorb[];
   currentUser: User;
+  totalPreis = 0;
+  newAnzahl: number;
 
 
   constructor(private warenkorbService: WarenkorbService, private loginService: LoginService) {
@@ -30,10 +32,21 @@ export class WarenkorbsComponent implements OnInit {
         this.warenkorbService.getWarenkorbsByUserId(this.currentUser.id).subscribe(warenkorbsFromServer => {
           this.warenkorbs = warenkorbsFromServer;
           console.log(this.warenkorbs);
+
+          // Calc total preis
+          this.calcTotalPreis();
         });
       }
     });
+  }
 
+  calcTotalPreis() {
+    this.totalPreis = 0;
+    this.warenkorbs.forEach(w => this.totalPreis += w.anzahl * w.artikel.preis);
+  }
 
+  onConfirm(warenkorb: Warenkorb) {
+    console.log(warenkorb);
+    console.log(this.newAnzahl);
   }
 }
