@@ -10,6 +10,7 @@ import {WarenkorbsComponent} from './components/warenkorbs/warenkorbs.component'
 import {WarenkorbItemComponent} from './components/warenkorb/warenkorbItem.component';
 import {BestellungComponent} from './components/bestellung/bestellung.component';
 import { BestellpositionComponent } from './components/bestellposition/bestellposition.component';
+import { UserComponent } from './components/user/user.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { BestellpositionComponent } from './components/bestellposition/bestellpo
     WarenkorbItemComponent,
     BestellungComponent,
     BestellpositionComponent,
+    UserComponent,
 
   ],
   imports: [
