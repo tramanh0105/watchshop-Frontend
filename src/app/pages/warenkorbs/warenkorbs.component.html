@@ -1,36 +1,40 @@
 <section class="container" *ngIf="currentUser">
-  <h2 class="mt-2">Warenkorb of {{ currentUser.benutzerName }}</h2>
+  <h2 class="mt-2">Warenkorb of {{ currentUser.benutzerName }} <i class="fa fa-shopping-cart text-info"></i></h2>
   <table class="table table-striped">
     <thead>
     <tr>
       <th>Beschreibung</th>
       <th class="w-25">Anzahl</th>
       <th>Preis</th>
-      <th>Gesamt Preis</th>
+      <th>Gesamt</th>
     </tr>
     </thead>
 
     <tbody>
-    <tr *ngFor="let warenkorb of warenkorbs; let i = index">
+    <tr *ngFor="let warenkorb of warenkorbs">
       <td>{{ warenkorb.artikel.beschreibung }}</td>
       <td>
-<!--        <div class="input-group">-->
-<!--          <input type="number" class="form-control" [value]="warenkorb.anzahl" [(ngModel)]="newAnzahlen[i]">-->
-<!--          <div class="input-group-append">-->
-<!--            <button class="btn btn-info" (click)="onConfirm(i)">Confirm</button>-->
-<!--          </div>-->
-<!--        </div>-->
         <div class="input-group">
           <input type="number" class="form-control" [(ngModel)]="warenkorb.anzahl">
           <div class="input-group-append">
-            <button class="btn btn-info" (click)="onConfirm()">Confirm</button>
+            <button class="btn btn-info" (click)="onConfirm(warenkorb)">Confirm</button>
           </div>
         </div>
       </td>
-      <td>{{ warenkorb.artikel.preis }} Euro</td>
-      <td>{{ warenkorb.artikel.preis * warenkorb.anzahl }} Euro</td>
+      <td>{{ warenkorb.artikel.preis | currency:'EUR'}}</td>
+      <td>{{ warenkorb.artikel.preis * warenkorb.anzahl | currency:'EUR'}} </td>
+      <td>
+        <a routerLink="/warenkorb" class="btn btn-danger" (click)="onDelete(warenkorb)">
+          <i class="fa fa-trash"></i> Delete
+        </a>
+      </td>
     </tr>
     </tbody>
   </table>
   <h3>Total Price: {{ totalPreis }} Euro</h3>
 </section>
+
+<section *ngIf="!currentUser" class="container text-center mt-5">
+  <h3>No User logged in</h3>
+</section>
+

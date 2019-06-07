@@ -22,4 +22,13 @@ export class ArticlesComponent implements OnInit {
     });
   }
 
+  onAddWarenkorb(artikel: Artikel) {
+    // Update on Server:
+    // Todo 1. Check if the artikel already in the user's Warenkorb
+
+    // Todo 2. Update the original Anzahl or create a new Warenkorb
+
+    // Todo 3. Call Put or Post request of WarenkorbService
+
+  }
 }
