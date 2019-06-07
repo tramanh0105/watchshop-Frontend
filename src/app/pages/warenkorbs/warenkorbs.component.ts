@@ -17,7 +17,7 @@ export class WarenkorbsComponent implements OnInit {
   warenkorbs: Warenkorb[];
   currentUser: User;
   totalPreis = 0;
-  newAnzahlen: number[] = [];
+  // newAnzahlen: number[] = [];
 
 
   constructor(private warenkorbService: WarenkorbService, private loginService: LoginService) {
@@ -38,7 +38,7 @@ export class WarenkorbsComponent implements OnInit {
           this.calcTotalPreis();
 
           // Initialize newAnzahlen
-          this.warenkorbs.forEach(w => this.newAnzahlen.push(w.anzahl));
+          // this.warenkorbs.forEach(w => this.newAnzahlen.push(w.anzahl));
         });
       }
     });
@@ -49,7 +49,8 @@ export class WarenkorbsComponent implements OnInit {
     this.warenkorbs.forEach(w => this.totalPreis += w.anzahl * w.artikel.preis);
   }
 
-  onConfirm(i: number) {
-    console.log(this.newAnzahlen[i]);
+  onConfirm() {
+    this.calcTotalPreis();
+    // console.log(this.newAnzahlen[i]);
   }
 }

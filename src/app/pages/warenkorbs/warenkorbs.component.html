@@ -14,10 +14,16 @@
     <tr *ngFor="let warenkorb of warenkorbs; let i = index">
       <td>{{ warenkorb.artikel.beschreibung }}</td>
       <td>
+<!--        <div class="input-group">-->
+<!--          <input type="number" class="form-control" [value]="warenkorb.anzahl" [(ngModel)]="newAnzahlen[i]">-->
+<!--          <div class="input-group-append">-->
+<!--            <button class="btn btn-info" (click)="onConfirm(i)">Confirm</button>-->
+<!--          </div>-->
+<!--        </div>-->
         <div class="input-group">
-          <input type="number" class="form-control" [value]="warenkorb.anzahl" [(ngModel)]="newAnzahlen[i]">
+          <input type="number" class="form-control" [(ngModel)]="warenkorb.anzahl">
           <div class="input-group-append">
-            <button class="btn btn-info" (click)="onConfirm(i)">Confirm</button>
+            <button class="btn btn-info" (click)="onConfirm()">Confirm</button>
           </div>
         </div>
       </td>
