@@ -27,6 +27,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLogout() {
-    this.loginService.deleteUserIdFromSession();
+    this.loginService.logout();
   }
 }

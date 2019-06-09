@@ -1,26 +1,9 @@
 <section class="container" *ngIf="artikels">
   <div class="row justify-content-end">
     <div class="col-md-4 col-sm-6 p-3" *ngFor="let artikel of artikels">
-      <div class="card">
-        <div class="card-img-top text-center">
-          <img src="https://source.unsplash.com/300x300/?watch" alt="" class="img-fluid">
-        </div>
+      <app-artikel-item [artikel]="artikel" (artikelAnzahlEmitter)="onAddToWarenkorb($event)">
 
-        <div class="card-body">
-          <h5 class="card-title">{{ artikel.beschreibung | titlecase }} {{ artikel.hersteller }} {{ artikel.preis }}
-            Euro
-          </h5>
-          <p>{{artikel.id}}</p>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, facere?</p>
-          <div class="d-flex w-50 ml-auto">
-            <input type="number" class="form-control" value="1" [(ngModel)]="anzahl">
-            <button class="btn btn-info" (click)="onAddWarenkorb(artikel)">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-          </div>
-
-        </div>
-      </div>
+      </app-artikel-item>
     </div>
   </div>
 </section>

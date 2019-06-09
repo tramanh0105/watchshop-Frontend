@@ -14,6 +14,8 @@ export class LoginService {
   currentUser = this.userSource.asObservable();
 
   constructor(private http: HttpClient, private userService: UserService) {
+    console.log('khoi tao login service');
+
     this.readCurrentUserFromSession();
   }
 
@@ -22,6 +24,7 @@ export class LoginService {
     if (userId) {
       this.userService.getUserById(userId).subscribe(userFromServer => {
         this.userSource.next(userFromServer);
+        console.log('read user from session successful: ' + userFromServer.benutzerName);
       });
     } else {
       this.userSource.next(null);
@@ -43,6 +46,10 @@ export class LoginService {
         console.log('not found');
       }
     });
+  }
+
+  public logout() {
+    this.deleteUserIdFromSession();
   }
 
   private saveUserIdToSession(id: number) {

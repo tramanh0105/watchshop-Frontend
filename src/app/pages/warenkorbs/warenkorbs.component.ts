@@ -30,7 +30,7 @@ export class WarenkorbsComponent implements OnInit {
       if (this.currentUser) {
         this.warenkorbService.getWarenkorbsByUserId(this.currentUser.id).subscribe(warenkorbsFromServer => {
           this.warenkorbs = warenkorbsFromServer;
-          console.log(this.warenkorbs);
+          console.log('warenkorbs from server: ' + this.warenkorbs);
 
           // Calc total preis
           this.calcTotalPreis();
@@ -39,11 +39,17 @@ export class WarenkorbsComponent implements OnInit {
     });
   }
 
+  /**
+   * Calculate total price of all articles in the cart
+   */
   calcTotalPreis() {
     this.totalPreis = 0;
     this.warenkorbs.forEach(w => this.totalPreis += w.anzahl * w.artikel.preis);
   }
 
+  /**
+   * Event Handle for changing Anzahl of on article
+   */
   onConfirm(warenkorb: Warenkorb) {
     // Update on UI
     this.calcTotalPreis();
@@ -57,6 +63,9 @@ export class WarenkorbsComponent implements OnInit {
 
   }
 
+  /**
+   * Event Handle when clicking Delete Button to remove one article from the Warenkorb
+   */
   onDelete(warenkorb: Warenkorb) {
     // Todo Update on UI
     this.warenkorbs = this.warenkorbs.filter(w => w.id !== warenkorb.id);

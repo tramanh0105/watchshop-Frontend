@@ -15,59 +15,71 @@ export class ArticlesComponent implements OnInit {
   artikels: Artikel[];
   currentUser: User;
   warenkorbs: Warenkorb[];
-  anzahl: number;
-  warenkorb: Warenkorb;
-  existed = false;
 
   constructor(private articleService: ArtikelService, private loginService: LoginService, private warenkorbService: WarenkorbService) {
   }
 
   ngOnInit() {
-    this.anzahl = 0;
-    this.loginService.getCurrentUser().subscribe(currentUser => this.currentUser = currentUser);
-    if (this.currentUser !== null) {
-      this.warenkorbService.getWarenkorbsByUserId(this.currentUser.id).subscribe(warenkorbFromServer =>
-        this.warenkorbs = warenkorbFromServer);
-    }
-    this.articleService.getArtikels().subscribe(artikels => {
+    this.loginService.getCurrentUser().subscribe(currentUser => {
+      this.currentUser = currentUser;
 
-      this.artikels = artikels;
-      console.log(this.artikels);
+      if (this.currentUser !== null) {
+        this.warenkorbService.getWarenkorbsByUserId(this.currentUser.id).subscribe(warenkorbFromServer => {
+          this.warenkorbs = warenkorbFromServer;
+          console.log('warenkorbs from user ' + this.warenkorbs);
+        });
+      }
+      this.articleService.getArtikels().subscribe(artikels => {
+
+        this.artikels = artikels;
+        console.log(this.artikels);
+      });
     });
   }
 
-  // Checking whether or not the selected artikel already existed in user's warenkorb
-  exist(artikel: Artikel) {
-    if (this.warenkorbs !== null) {
+  /**
+   * Checking whether or not the selected artikel already warenkorbExisted in user's warenkorb
+   */
+  checkWarenkorbExisted(artikel: Artikel): boolean {
+    let existed = false;
+    if (this.warenkorbs !== undefined) {
       this.warenkorbs.forEach(w => {
         if (w.artikel.id === artikel.id) {
-          this.existed = true;
-          this.warenkorb = w;
+          existed = true;
         }
       });
     }
+    return existed;
   }
 
-  onAddWarenkorb(artikel: Artikel) {
-    let updatedAnzahl: number;
+  /**
+   * Event Handle for adding one Article to the Warenkorb
+   */
+  onAddToWarenkorb($event: { artikel: Artikel; newAnzahl: number }) {
+    console.log($event);
+    const artikel = $event.artikel;
+    const newAnzahl = $event.newAnzahl;
+
     // Check if the artikel already in the user's Warenkorb
-    this.exist(artikel);
-    // Update the original Anzahl
-    if (this.warenkorb !== null) {
-      updatedAnzahl = this.anzahl + this.warenkorb.anzahl;
-    }
-
-
-    if (this.existed === true) {
-      this.warenkorbService.updateWarenkorb(artikel.id, this.currentUser.id, updatedAnzahl).subscribe(warenkorbFromServer => {
-        this.warenkorb = warenkorbFromServer;
+    if (this.checkWarenkorbExisted(artikel)) {
+      let warenkorb: Warenkorb = null;
+      // Update the original Anzahl
+      this.warenkorbs.forEach(w => {
+        if (w.artikel.id === artikel.id) {
+          w.anzahl += newAnzahl;
+          warenkorb = w;
+        }
       });
 
-      // Call Post request of WarenkorbService
+      // Call PUT Request
+      this.warenkorbService.updateWarenkorb(artikel.id, this.currentUser.id, warenkorb.anzahl).subscribe(updatedWarenkorbFromServer => {
+        console.log('updated warenkorb: ' + updatedWarenkorbFromServer.id + ' updated anzahl: ' + updatedWarenkorbFromServer.anzahl);
+      });
     } else {
-      this.warenkorbService.createWarenkorb(artikel.id, this.currentUser.id, this.anzahl).subscribe(warenkorb => {
-        this.warenkorb = warenkorb;
-        this.warenkorbs.push(warenkorb);
+
+      // Call POST Request
+      this.warenkorbService.createWarenkorb(artikel.id, this.currentUser.id, newAnzahl).subscribe(newWarenkorbFromServer => {
+        console.log('created warenkorb: ' + newWarenkorbFromServer.id + ' new anzahl: ' + newWarenkorbFromServer.anzahl);
       });
     }
   }
