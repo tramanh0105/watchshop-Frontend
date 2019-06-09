@@ -53,11 +53,19 @@ export class WarenkorbsComponent implements OnInit {
 
     // Update on Server; Call Put Request from WarenkorbService
     //  Todo
+    console.log(warenkorb);
+    this.warenkorbService.updateWarenkorb(warenkorb.artikel.id, warenkorb.user.id, warenkorb.anzahl).subscribe(warenkorbFromServer => {
+      warenkorb = warenkorbFromServer;
+    });
+
   }
 
   onDelete(warenkorb: Warenkorb) {
     // Todo Update on UI
-
+    this.warenkorbs = this.warenkorbs.filter(w => w.id !== warenkorb.id);
     // Todo Update on Server: Call Delete Request from WarenkorbService
+    this.warenkorbService.deleteWarenkorb(warenkorb.artikel.id, warenkorb.user.id).subscribe(warenkorbFromServer => {
+      warenkorb = warenkorbFromServer;
+    });
   }
 }
