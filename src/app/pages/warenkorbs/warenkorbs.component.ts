@@ -18,9 +18,6 @@ export class WarenkorbsComponent implements OnInit {
   currentUser: User;
   totalPreis = 0;
 
-  // newAnzahlen: number[] = [];
-
-
   constructor(private warenkorbService: WarenkorbService, private loginService: LoginService) {
   }
 

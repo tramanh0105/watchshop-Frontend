@@ -3,6 +3,7 @@
   <table class="table table-striped">
     <thead>
     <tr>
+      <th>Artikelid</th>
       <th>Beschreibung</th>
       <th class="w-25">Anzahl</th>
       <th>Preis</th>
@@ -12,6 +13,7 @@
 
     <tbody>
     <tr *ngFor="let warenkorb of warenkorbs">
+      <td>{{warenkorb.artikel.id}}</td>
       <td>{{ warenkorb.artikel.beschreibung }}</td>
       <td>
         <div class="input-group">
@@ -38,3 +40,6 @@
   <h3>No User logged in</h3>
 </section>
 
+<section *ngIf="!warenkorbs" class="container text-center mt-5">
+  <h3>Warenkorb ist leer</h3>
+</section>

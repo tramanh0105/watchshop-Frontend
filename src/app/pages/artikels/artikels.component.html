@@ -10,9 +10,10 @@
           <h5 class="card-title">{{ artikel.beschreibung | titlecase }} {{ artikel.hersteller }} {{ artikel.preis }}
             Euro
           </h5>
+          <p>{{artikel.id}}</p>
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, facere?</p>
           <div class="d-flex w-50 ml-auto">
-            <input type="number" class="form-control" value="1">
+            <input type="number" class="form-control" value="1" [(ngModel)]="anzahl">
             <button class="btn btn-info" (click)="onAddWarenkorb(artikel)">
               <i class="fa fa-shopping-cart"></i>
             </button>
