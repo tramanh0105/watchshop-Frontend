@@ -75,4 +75,12 @@ export class WarenkorbsComponent implements OnInit {
       warenkorb = warenkorbFromServer;
     });
   }
+
+  onBestellen() {
+    // Todo
+    // Transfer all items from Warenkorb to Bestellung
+    // Call POST Request in BestellungSerivce
+    // Clear Warenkorb from UI
+    // Clear Warenkorb from Server; Call Delete Request
+  }
 }

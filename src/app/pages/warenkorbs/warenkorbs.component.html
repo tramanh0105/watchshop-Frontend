@@ -27,13 +27,16 @@
       <td>{{ warenkorb.artikel.preis * warenkorb.anzahl | currency:'EUR'}} </td>
       <td>
         <a routerLink="/warenkorb" class="btn btn-danger" (click)="onDelete(warenkorb)">
-          <i class="fa fa-trash"></i> Delete
+          <i class="fa fa-trash"></i>
         </a>
       </td>
     </tr>
     </tbody>
   </table>
   <h3>Total Price: {{ totalPreis }} Euro</h3>
+  <a routerLink="/bestellung" class="btn btn-outline-warning" (click)="onBestellen()">
+    <i class="fa fa-paypal"></i> Bestellen
+  </a>
 </section>
 
 <section *ngIf="!currentUser" class="container text-center mt-5">
