@@ -23,7 +23,7 @@ export class BestellpositionService {
   }
 
   createBestellposition(bestellungId: number, artikelId: number, anzahl: number): Observable<Bestellposition> {
-    const newUrl = `$/{this.url}/bestellpositions/${bestellungId}/${artikelId}/${anzahl}`;
+    const newUrl = `${this.url}/bestellpositions/${bestellungId}/${artikelId}/${anzahl}`;
     return this.http.post<Bestellposition>(newUrl, null);
   }
 

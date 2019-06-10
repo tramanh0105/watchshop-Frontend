@@ -10,6 +10,7 @@ import index from '@angular/cli/lib/cli';
 import {BestellungService} from '../../services/bestellung.service';
 import {BestellpositionService} from '../../services/bestellposition.service';
 import {Bestellung} from '../../models/Bestellung';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-warenkorbs',
@@ -23,7 +24,13 @@ export class WarenkorbsComponent implements OnInit {
   newBestellung: Bestellung;
 
   // tslint:disable-next-line:max-line-length
-  constructor(private warenkorbService: WarenkorbService, private loginService: LoginService, private bestellungService: BestellungService, private bestellpositionService: BestellpositionService) {
+  constructor(
+    private warenkorbService: WarenkorbService,
+    private loginService: LoginService,
+    private bestellungService: BestellungService,
+    private bestellpositionService: BestellpositionService,
+    private router: Router
+  ) {
   }
 
   ngOnInit() {
@@ -88,17 +95,23 @@ export class WarenkorbsComponent implements OnInit {
     this.bestellungService.createBestellung(this.currentUser.id).subscribe(newBestellungFromServer => {
       this.newBestellung = newBestellungFromServer;
       this.warenkorbs.forEach(w => {
-        this.bestellpositionService.createBestellposition(this.newBestellung.id, w.artikel.id, w.anzahl).subscribe();
+        this.bestellpositionService.createBestellposition(this.newBestellung.id, w.artikel.id, w.anzahl).subscribe(newBestellPosition => {
+          console.log(newBestellPosition);
+        });
       });
+
+      // Clear Warenkorb from Server; Call Delete Request
+      this.warenkorbs.forEach(w => {
+        this.warenkorbService.deleteWarenkorb(w.artikel.id, this.currentUser.id).subscribe();
+      });
+
+      this.router.navigate(['/bestellung']);
     });
 
-    // Clear Warenkorb from Server; Call Delete Request
-    this.warenkorbs.forEach(w => {
-      this.warenkorbService.deleteWarenkorb(w.artikel.id, this.currentUser.id).subscribe();
-    });
-    // Clear Warenkorb from UI
-    while (this.warenkorbs.length > 0) {
-      this.warenkorbs.pop();
-    }
+
+    // // Clear Warenkorb from UI
+    // while (this.warenkorbs.length > 0) {
+    //   this.warenkorbs.pop();
+    // }
   }
 }

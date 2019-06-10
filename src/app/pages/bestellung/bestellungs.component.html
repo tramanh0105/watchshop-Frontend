@@ -22,12 +22,12 @@
         </a>
       </td>
       <td>
-<!--        [class.disabled]="bestellung.bestellstatus === 'Geliefert'"-->
-        <div *ngIf="bestellung.bestellstatus =='Bearbeitet'">
-        <a (click)="onBezahlen(bestellung)" class="btn btn-warning" >
+        <!--        [class.disabled]="bestellung.bestellstatus === 'Geliefert'"-->
+        <a (click)="onBezahlen(bestellung)"
+           class="btn btn-warning"
+           [class.disabled]="bestellung.bestellstatus === 'Geliefert'">
           <i class="fa fa-money"></i> Bezahlen
         </a>
-        </div>
       </td>
 
     </tr>

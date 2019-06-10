@@ -39,7 +39,6 @@ export class BestellungItemComponent implements OnInit {
       }
     });
 
-
   }
 
   calcTotalPreis() {
