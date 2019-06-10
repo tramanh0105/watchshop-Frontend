@@ -69,6 +69,7 @@ export class WarenkorbsComponent implements OnInit {
   onDelete(warenkorb: Warenkorb) {
     // Todo Update on UI
     this.warenkorbs = this.warenkorbs.filter(w => w.id !== warenkorb.id);
+    this.calcTotalPreis();
     // Todo Update on Server: Call Delete Request from WarenkorbService
     this.warenkorbService.deleteWarenkorb(warenkorb.artikel.id, warenkorb.user.id).subscribe(warenkorbFromServer => {
       warenkorb = warenkorbFromServer;

@@ -8,18 +8,19 @@ import {ArticlesComponent} from './pages/artikels/artikels.component';
 import {ArtikelItemComponent} from './components/artikel-item/artikel-item.component';
 import {WarenkorbsComponent} from './pages/warenkorbs/warenkorbs.component';
 import {WarenkorbItemComponent} from './components/warenkorb/warenkorbItem.component';
-import {BestellungComponent} from './pages/bestellung/bestellung.component';
-import {BestellpositionComponent} from './components/bestellposition/bestellposition.component';
+import {BestellungsComponent} from './pages/bestellung/bestellungs.component';
+import {BestellpositionsComponent} from './pages/bestellpositions/bestellpositions.component';
 import {UserComponent} from './pages/user/user.component';
 import {AdresseComponent} from './components/adresse/adresse.component';
-import { LagersComponent } from './components/lagers/lagers.component';
-import { LagerHasArtikelComponent } from './components/lager-has-artikel/lager-has-artikel.component';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { NotfoundComponent } from './pages/notfound/notfound.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { FooterComponent } from './components/footer/footer.component';
+import {LagersComponent} from './components/lagers/lagers.component';
+import {LagerHasArtikelComponent} from './components/lager-has-artikel/lager-has-artikel.component';
+import {LoginComponent} from './pages/login/login.component';
+import {RegisterComponent} from './pages/register/register.component';
+import {NotfoundComponent} from './pages/notfound/notfound.component';
+import {NavbarComponent} from './components/navbar/navbar.component';
+import {FooterComponent} from './components/footer/footer.component';
 import {FormsModule} from '@angular/forms';
+import { BestellungItemComponent } from './components/bestellung-item/bestellung-item.component';
 
 
 @NgModule({
@@ -29,8 +30,8 @@ import {FormsModule} from '@angular/forms';
     ArtikelItemComponent,
     WarenkorbsComponent,
     WarenkorbItemComponent,
-    BestellungComponent,
-    BestellpositionComponent,
+    BestellungsComponent,
+    BestellpositionsComponent,
     UserComponent,
     AdresseComponent,
     LagersComponent,
@@ -40,7 +41,7 @@ import {FormsModule} from '@angular/forms';
     NotfoundComponent,
     NavbarComponent,
     FooterComponent,
-
+    BestellungItemComponent,
 
   ],
   imports: [
