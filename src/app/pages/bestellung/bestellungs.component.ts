@@ -3,8 +3,7 @@ import {Bestellung} from '../../models/Bestellung';
 import {User} from '../../models/User';
 import {BestellungService} from '../../services/bestellung.service';
 import {LoginService} from '../../services/login.service';
-import {Bestellposition} from '../../models/Bestellposition';
-import {BestellpositionService} from '../../services/bestellposition.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-bestellung',
@@ -17,14 +16,14 @@ export class BestellungsComponent implements OnInit {
   length: number;
 
 
-  // tslint:disable-next-line:max-line-length
-  constructor(private bestellungService: BestellungService, private loginService: LoginService) {
-    this.bestellungService = bestellungService;
-    this.loginService = loginService;
+  constructor(
+    private bestellungService: BestellungService,
+    private loginService: LoginService,
+    private router: Router
+  ) {
   }
 
   ngOnInit() {
-
     this.loginService.getCurrentUser().subscribe(currentUser => {
       this.currentUser = currentUser;
       console.log(currentUser);
@@ -38,4 +37,11 @@ export class BestellungsComponent implements OnInit {
 
   }
 
+  onBezahlen(bestellung: Bestellung) {
+    // TODO
+    // Change Bestellstatus of the bestellung on UI
+    // Change Bestellstatus of the bestellung on Server; Call PUT Request from BestellungService
+    // Redirect back to /bestellung with Router
+    // Tipps: this.router.navigate(['/bestellung']);
+  }
 }

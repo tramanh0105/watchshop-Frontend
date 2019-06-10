@@ -1,9 +1,9 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {Bestellung} from '../../models/Bestellung';
 import {Bestellposition} from '../../models/Bestellposition';
 import {BestellpositionService} from '../../services/bestellposition.service';
-import {BestellpositionsComponent} from '../../pages/bestellpositions/bestellpositions.component';
-import {CurrentBestellungService} from '../../services/current-bestellung.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {User} from '../../models/User';
+import {LoginService} from '../../services/login.service';
 
 @Component({
   selector: 'app-bestellung-item',
@@ -11,17 +11,39 @@ import {CurrentBestellungService} from '../../services/current-bestellung.servic
   styleUrls: ['./bestellung-item.component.scss']
 })
 export class BestellungItemComponent implements OnInit {
-  @Input() bestellung: Bestellung;
+  bestellungId: number;
+  bestellPositions: Bestellposition[];
+  currentUser: User;
+  totalPreis: number;
 
-
-  constructor(private currentBestellungService: CurrentBestellungService) {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private bestellPositionService: BestellpositionService,
+    private loginService: LoginService
+  ) {
   }
 
   ngOnInit() {
+    this.loginService.getCurrentUser().subscribe(userFromSession => {
+      this.currentUser = userFromSession;
+
+      if (this.currentUser) {
+        this.bestellungId = this.route.snapshot.params.bestellungId;
+        this.bestellPositionService.getBestellpositionsByBestellungId(this.bestellungId).subscribe(bestellPositionsFromServer => {
+          this.bestellPositions = bestellPositionsFromServer;
+
+          this.calcTotalPreis();
+          console.log(this.bestellPositions);
+        });
+      }
+    });
+
+
   }
 
-  // change currentBestellung
-  onNewBestellung() {
-    this.currentBestellungService.changeCurrentBestellung(this.bestellung);
+  calcTotalPreis() {
+    this.totalPreis = 0;
+    this.bestellPositions.forEach(bs => this.totalPreis += bs.anzahl * bs.artikel.preis);
   }
 }

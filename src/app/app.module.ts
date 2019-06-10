@@ -9,7 +9,6 @@ import {ArtikelItemComponent} from './components/artikel-item/artikel-item.compo
 import {WarenkorbsComponent} from './pages/warenkorbs/warenkorbs.component';
 import {WarenkorbItemComponent} from './components/warenkorb/warenkorbItem.component';
 import {BestellungsComponent} from './pages/bestellung/bestellungs.component';
-import {BestellpositionsComponent} from './pages/bestellpositions/bestellpositions.component';
 import {UserComponent} from './pages/user/user.component';
 import {AdresseComponent} from './components/adresse/adresse.component';
 import {LagersComponent} from './components/lagers/lagers.component';
@@ -20,7 +19,7 @@ import {NotfoundComponent} from './pages/notfound/notfound.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {FormsModule} from '@angular/forms';
-import { BestellungItemComponent } from './components/bestellung-item/bestellung-item.component';
+import {BestellungItemComponent} from './components/bestellung-item/bestellung-item.component';
 
 
 @NgModule({
@@ -31,7 +30,6 @@ import { BestellungItemComponent } from './components/bestellung-item/bestellung
     WarenkorbsComponent,
     WarenkorbItemComponent,
     BestellungsComponent,
-    BestellpositionsComponent,
     UserComponent,
     AdresseComponent,
     LagersComponent,

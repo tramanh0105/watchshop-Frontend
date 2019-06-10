@@ -1,20 +1,40 @@
-<section *ngIf="currentUser">
-  <h2>Bestellungen von {{currentUser.name}}</h2>
-<!--  <table class="table">-->
-<!--    <thead>-->
-<!--    <tr>-->
-<!--      <th scope="col">BestellungId</th>-->
-<!--      <th scope="col">Bestelldatum</th>-->
-<!--      <th scope="col">Bestellungstatus</th>-->
-<!--      <th></th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    <tr *ngIf="length ==0">-->
-<!--      <td colspan="4" class="text-xs-center">Du hast noch keine Bestellung</td>-->
-<!--    </tr>-->
-<!--    <app-bestellung-item *ngFor="let bestellung of bestellungs" [bestellung]="bestellung"></app-bestellung-item>-->
-<!--    </tbody>-->
-<!--  </table>-->
-  <app-bestellung-item *ngFor="let bestellung of bestellungs" [bestellung]="bestellung"></app-bestellung-item>
+<section *ngIf="currentUser" class="container mt-5">
+  <h2>Bestellungen von {{ currentUser.benutzerName }}</h2>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Bestelldatum</th>
+      <th>Bestellstatus</th>
+      <th>Details</th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let bestellung of bestellungs">
+      <td>{{ bestellung.id }}</td>
+      <td>{{ bestellung.bestelldatum }}</td>
+      <td>{{ bestellung.bestellstatus }}</td>
+      <td>
+        <a routerLink="/bestellung/{{ bestellung.id }}" class="btn btn-info">
+          <i class="fa fa-info"></i> Details
+        </a>
+      </td>
+      <td>
+<!--        [class.disabled]="bestellung.bestellstatus === 'Geliefert'"-->
+        <a (click)="onBezahlen(bestellung)" class="btn btn-warning" >
+          <i class="fa fa-money"></i> Bezahlen
+        </a>
+      </td>
+
+    </tr>
+    </tbody>
+  </table>
 </section>
+
+<section *ngIf="!currentUser" class="container">
+  <h2>No user logged in...</h2>
+</section>
+
+

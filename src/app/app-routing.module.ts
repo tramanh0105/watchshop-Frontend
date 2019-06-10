@@ -7,13 +7,13 @@ import {UserComponent} from './pages/user/user.component';
 import {LoginComponent} from './pages/login/login.component';
 import {RegisterComponent} from './pages/register/register.component';
 import {NotfoundComponent} from './pages/notfound/notfound.component';
-import {BestellpositionsComponent} from './pages/bestellpositions/bestellpositions.component';
+import {BestellungItemComponent} from './components/bestellung-item/bestellung-item.component';
 
 const routes: Routes = [
   {path: '', component: ArticlesComponent},
   {path: 'warenkorb', component: WarenkorbsComponent},
   {path: 'bestellung', component: BestellungsComponent},
-  {path: 'bestellpositions', component: BestellpositionsComponent},
+  {path: 'bestellung/:bestellungId', component: BestellungItemComponent},
   {path: 'user', component: UserComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},

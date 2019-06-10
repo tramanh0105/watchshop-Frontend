@@ -1,8 +1,28 @@
-<div class="card w-75 ml-2rem">
-  <div class="card-body">
-    <h5 class="card-title">Bestellung {{bestellung.id}}</h5>
-    <p class="card-text">Bestelldatum : {{bestellung.bestelldatum}}</p>
-    <p class="card-text">Bestellstatus: {{bestellung.bestellstatus}}</p>
-    <a routerLink="/bestellpositions" class="btn btn-info" (click)="onNewBestellung()">Details</a>
-  </div>
-</div>
+<section *ngIf="currentUser" class="container mt-5">
+  <a routerLink="/bestellung">
+    <i class="fa fa-arrow-circle-left"></i> Back to Bestellung
+  </a>
+  <h2>Details von Bestellung {{ bestellungId }}</h2>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Artikelid</th>
+      <th>Beschreibung</th>
+      <th class="w-25">Anzahl</th>
+      <th>Preis</th>
+      <th>Gesamt</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let bestellPosition of bestellPositions">
+      <td>{{bestellPosition.artikel.id}}</td>
+      <td>{{ bestellPosition.artikel.beschreibung }} {{ bestellPosition.artikel.hersteller }}</td>
+      <td>{{ bestellPosition.anzahl }}</td>
+      <td>{{ bestellPosition.artikel.preis | currency:'EUR'}}</td>
+      <td>{{ bestellPosition.artikel.preis * bestellPosition.anzahl | currency:'EUR'}} </td>
+    </tr>
+    <h3>Total Price: {{ totalPreis | currency:'EUR'}}</h3>
+    </tbody>
+  </table>
+</section>

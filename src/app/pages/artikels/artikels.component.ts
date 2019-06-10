@@ -38,7 +38,7 @@ export class ArticlesComponent implements OnInit {
   }
 
   /**
-   * Checking whether or not the selected artikel already warenkorbExisted in user's warenkorb
+   * Checking whether or not the selected artikel already warenkorbExisted in user's bestellPosition
    */
   checkWarenkorbExisted(artikel: Artikel): boolean {
     let existed = false;
@@ -73,13 +73,13 @@ export class ArticlesComponent implements OnInit {
 
       // Call PUT Request
       this.warenkorbService.updateWarenkorb(artikel.id, this.currentUser.id, warenkorb.anzahl).subscribe(updatedWarenkorbFromServer => {
-        console.log('updated warenkorb: ' + updatedWarenkorbFromServer.id + ' updated anzahl: ' + updatedWarenkorbFromServer.anzahl);
+        console.log('updated bestellPosition: ' + updatedWarenkorbFromServer.id + ' updated anzahl: ' + updatedWarenkorbFromServer.anzahl);
       });
     } else {
 
       // Call POST Request
       this.warenkorbService.createWarenkorb(artikel.id, this.currentUser.id, newAnzahl).subscribe(newWarenkorbFromServer => {
-        console.log('created warenkorb: ' + newWarenkorbFromServer.id + ' new anzahl: ' + newWarenkorbFromServer.anzahl);
+        console.log('created bestellPosition: ' + newWarenkorbFromServer.id + ' new anzahl: ' + newWarenkorbFromServer.anzahl);
       });
     }
   }

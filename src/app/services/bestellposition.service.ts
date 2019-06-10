@@ -17,7 +17,7 @@ export class BestellpositionService {
     return this.http.get<Bestellposition[]>(newUrl);
   }
 
-  findBestellpositionById(bestellungId: number): Observable<Bestellposition[]> {
+  getBestellpositionsByBestellungId(bestellungId: number): Observable<Bestellposition[]> {
     const newUrl = `${this.url}/bestellpositions/${bestellungId}`;
     return this.http.get<Bestellposition[]>(newUrl);
   }
