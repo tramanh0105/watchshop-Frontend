@@ -12,4 +12,5 @@ export class Bestellung {
     this.bestelldatum = bestelldatum;
     this.bestellstatus = bestellstatus;
   }
+
 }

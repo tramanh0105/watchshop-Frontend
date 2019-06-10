@@ -37,11 +37,19 @@ export class BestellungsComponent implements OnInit {
 
   }
 
+  redirectTo(url: string) {
+    this.router.navigateByUrl('', {skipLocationChange: true}).then(() =>
+      this.router.navigate([url]));
+  }
+
   onBezahlen(bestellung: Bestellung) {
-    // TODO
-    // Change Bestellstatus of the bestellung on UI
-    // Change Bestellstatus of the bestellung on Server; Call PUT Request from BestellungService
+    // Change Bestellstatus of the bestellung on Server; Call PUT Request from BestellungService and reload page
+    this.bestellungService.updateBestellung(bestellung.id).subscribe(bestellungFromServer => {
+      bestellung = bestellungFromServer;
+      this.redirectTo('/bestellung');
+    });
     // Redirect back to /bestellung with Router
     // Tipps: this.router.navigate(['/bestellung']);
+
   }
 }

@@ -25,7 +25,7 @@
         <!--        [class.disabled]="bestellung.bestellstatus === 'Geliefert'"-->
         <a (click)="onBezahlen(bestellung)"
            class="btn btn-warning"
-           [class.disabled]="bestellung.bestellstatus === 'Geliefert'">
+           [class.disabled]="bestellung.bestellstatus !== 'Bearbeitet'">
           <i class="fa fa-money"></i> Bezahlen
         </a>
       </td>
