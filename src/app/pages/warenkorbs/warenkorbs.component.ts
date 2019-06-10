@@ -7,6 +7,9 @@ import {Artikel} from '../../models/Artikel';
 import {User} from '../../models/User';
 import {LoginService} from '../../services/login.service';
 import index from '@angular/cli/lib/cli';
+import {BestellungService} from '../../services/bestellung.service';
+import {BestellpositionService} from '../../services/bestellposition.service';
+import {Bestellung} from '../../models/Bestellung';
 
 @Component({
   selector: 'app-warenkorbs',
@@ -17,8 +20,10 @@ export class WarenkorbsComponent implements OnInit {
   warenkorbs: Warenkorb[];
   currentUser: User;
   totalPreis = 0;
+  newBestellung: Bestellung;
 
-  constructor(private warenkorbService: WarenkorbService, private loginService: LoginService) {
+  // tslint:disable-next-line:max-line-length
+  constructor(private warenkorbService: WarenkorbService, private loginService: LoginService, private bestellungService: BestellungService, private bestellpositionService: BestellpositionService) {
   }
 
   ngOnInit() {
@@ -80,7 +85,20 @@ export class WarenkorbsComponent implements OnInit {
     // Todo
     // Transfer all items from Warenkorb to Bestellung
     // Call POST Request in BestellungSerivce
-    // Clear Warenkorb from UI
+    this.bestellungService.createBestellung(this.currentUser.id).subscribe(newBestellungFromServer => {
+      this.newBestellung = newBestellungFromServer;
+      this.warenkorbs.forEach(w => {
+        this.bestellpositionService.createBestellposition(this.newBestellung.id, w.artikel.id, w.anzahl).subscribe();
+      });
+    });
+
     // Clear Warenkorb from Server; Call Delete Request
+    this.warenkorbs.forEach(w => {
+      this.warenkorbService.deleteWarenkorb(w.artikel.id, this.currentUser.id).subscribe();
+    });
+    // Clear Warenkorb from UI
+    while (this.warenkorbs.length > 0) {
+      this.warenkorbs.pop();
+    }
   }
 }
