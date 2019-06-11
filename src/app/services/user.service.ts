@@ -16,4 +16,15 @@ export class UserService {
     const newUrl = `${this.url}/${userId}`;
     return this.http.get<User>(newUrl);
   }
+
+  createUser(user: User, userId: number): Observable<User> {
+    const newUrl = `${this.url}/${userId}`;
+    return this.http.post<User>(newUrl, user);
+  }
+
+  updateUser(user: User, userId: number) {
+    const newUrl = `${this.url}/${userId}`;
+    return this.http.put<User>(newUrl, user);
+  }
+
 }

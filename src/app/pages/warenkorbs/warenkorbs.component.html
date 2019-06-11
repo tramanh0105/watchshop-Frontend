@@ -34,7 +34,7 @@
     </tbody>
   </table>
   <h3>Total Price: {{ totalPreis }} Euro</h3>
-  <a [class.disabled]="warenkorbs.length == 0" class="btn btn-outline-warning" (click)="onBestellen()">
+  <a *ngIf="warenkorbs" [class.disabled]="warenkorbs.length == 0" class="btn btn-outline-warning" (click)="onBestellen()">
     <i class="fa fa-paypal"></i> Bestellen
   </a>
 </section>

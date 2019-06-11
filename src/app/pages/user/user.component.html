@@ -7,7 +7,7 @@
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="inputEmail4">Email</label>
-        <input type="email" class="form-control-plaintext" id="inputEmail4" placeholder="Email" readonly>
+        <input type="email" class="form-control-plaintext" id="inputEmail4" placeholder="{{currentUser.email}}" readonly>
       </div>
       <div class="form-group col-md-6">
         <label for="inputName">Name</label>
@@ -46,7 +46,7 @@
         <i class="fas fa-arrow-left"></i>Back to Home
       </a>
 
-      <a routerLink="#" class="btn btn-outline-dark">
+      <a routerLink="/user/edit" class="btn btn-outline-dark">
         <i class="far fa-edit"></i>Bearbeiten
       </a>
     </div>

@@ -20,6 +20,7 @@ import {NavbarComponent} from './components/navbar/navbar.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {FormsModule} from '@angular/forms';
 import {BestellungItemComponent} from './components/bestellung-item/bestellung-item.component';
+import { UserEditComponent } from './pages/user-edit/user-edit.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import {BestellungItemComponent} from './components/bestellung-item/bestellung-i
     NavbarComponent,
     FooterComponent,
     BestellungItemComponent,
+    UserEditComponent,
 
   ],
   imports: [

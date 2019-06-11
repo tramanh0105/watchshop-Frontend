@@ -22,6 +22,11 @@ export class AdresseService {
     return this.http.post<Adresse>(newUrl, adresse);
   }
 
+  updateAdresse(userId: number, adresse: Adresse): Observable<Adresse> {
+    const newUrl = `${this.url}/${userId}/adresse`;
+    return this.http.put<Adresse>(newUrl, null);
+  }
+
   deleteAdresse(userId: number): Observable<Adresse> {
     const newUrl = `${this.url}/${userId}/adresse`;
     return this.http.delete<Adresse>(newUrl);

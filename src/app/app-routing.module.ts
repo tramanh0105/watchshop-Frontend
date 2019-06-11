@@ -8,6 +8,7 @@ import {LoginComponent} from './pages/login/login.component';
 import {RegisterComponent} from './pages/register/register.component';
 import {NotfoundComponent} from './pages/notfound/notfound.component';
 import {BestellungItemComponent} from './components/bestellung-item/bestellung-item.component';
+import {UserEditComponent} from './pages/user-edit/user-edit.component';
 
 const routes: Routes = [
   {path: '', component: ArticlesComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'bestellung', component: BestellungsComponent},
   {path: 'bestellung/:bestellungId', component: BestellungItemComponent},
   {path: 'user', component: UserComponent},
+  {path: 'user/edit', component: UserEditComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: '**', component: NotfoundComponent}
