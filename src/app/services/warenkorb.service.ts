@@ -12,23 +12,23 @@ export class WarenkorbService {
   constructor(private http: HttpClient) {
   }
 
-  getWarenkorbsByUserId(userId: number): Observable<Warenkorb[]> {
+  getWarenkorbsByUserId(userId: number): Promise<Warenkorb[]> {
     const newUrl = `${this.url}/${userId}/warenkorbs`;
-    return this.http.get<Warenkorb[]>(newUrl);
+    return this.http.get<Warenkorb[]>(newUrl).toPromise();
   }
 
-  createWarenkorb(artikelId: number, userId: number, anzahl: number): Observable<Warenkorb> {
+  createWarenkorb(artikelId: number, userId: number, anzahl: number): Promise<Warenkorb> {
     const newUrl = `${this.url}/${userId}/warenkorbs/artikels/${artikelId}/${anzahl}`;
-    return this.http.post<Warenkorb>(newUrl, null);
+    return this.http.post<Warenkorb>(newUrl, null).toPromise();
   }
 
-  updateWarenkorb(artikelId: number, userId: number, anzahl: number): Observable<Warenkorb> {
+  updateWarenkorb(artikelId: number, userId: number, anzahl: number): Promise<Warenkorb> {
     const newUrl = `${this.url}/${userId}/warenkorbs/artikels/${artikelId}/${anzahl}`;
-    return this.http.put<Warenkorb>(newUrl, null);
+    return this.http.put<Warenkorb>(newUrl, null).toPromise();
   }
 
-  deleteWarenkorb(artikelId: number, userId: number): Observable<Warenkorb> {
+  deleteWarenkorb(artikelId: number, userId: number): Promise<Warenkorb> {
     const newUrl = `${this.url}/${userId}/warenkorbs/artikels/${artikelId}`;
-    return this.http.delete<Warenkorb>(newUrl);
+    return this.http.delete<Warenkorb>(newUrl).toPromise();
   }
 }

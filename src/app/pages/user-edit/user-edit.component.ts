@@ -19,31 +19,26 @@ export class UserEditComponent implements OnInit {
   constructor(private loginService: LoginService, private adresseService: AdresseService, private userService: UserService) {
   }
 
-  ngOnInit() {
-    this.loginService.getCurrentUser().subscribe(currentUserFromServer => {
-      this.currentUser = currentUserFromServer;
+  async ngOnInit() {
+    this.loginService.getCurrentUser().subscribe(async currentUser => {
+      this.currentUser = currentUser;
+
       if (this.currentUser) {
         console.log('initial user' + this.currentUser);
-        this.adresseService.getAdresse(this.currentUser.id).subscribe(adresseFromServer => {
-          this.adresseCurrentUser = adresseFromServer;
-        });
+        this.adresseCurrentUser = await this.adresseService.getAdresse(this.currentUser.id);
       }
     });
   }
 
-  onSave() {
+  async onSave() {
     // making a PUT request to server to update userInfo
-    this.userService.updateUser(this.newUser, this.currentUser.id).subscribe(newUserFromServer => {
-      this.currentUser = newUserFromServer;
+    this.currentUser = await this.userService.updateUser(this.newUser, this.currentUser.id);
+    // making a PUT request to server to update adresse
+    if (this.currentUser) {
+      console.log('modified ' + this.currentUser);
+      this.adresseCurrentUser = await this.adresseService.updateAdresse(this.currentUser.id, this.newAdresse);
+    }
 
-      // making a PUT request to server to update adresse
-      if (this.currentUser) {
-        console.log('modified ' + this.currentUser);
-        this.adresseService.updateAdresse(this.currentUser.id, this.newAdresse).subscribe(newAdresseFromServer => {
-          this.adresseCurrentUser = newAdresseFromServer;
-        });
-      }
-    });
   }
 
 }

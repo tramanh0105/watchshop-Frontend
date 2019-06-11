@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService) {
   }
 
-  ngOnInit() {
-    this.loginService.getCurrentUser().subscribe(currentUser => {
+  async ngOnInit() {
+    this.loginService.getCurrentUser().subscribe(async currentUser => {
       this.currentUser = currentUser;
     });
   }

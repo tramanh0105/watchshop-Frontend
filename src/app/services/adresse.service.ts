@@ -12,24 +12,24 @@ export class AdresseService {
   constructor(private http: HttpClient) {
   }
 
-  getAdresse(userId: number): Observable<Adresse> {
+  getAdresse(userId: number): Promise<Adresse> {
     const newUrl = `${this.url}/${userId}/adresse`;
-    return this.http.get<Adresse>(newUrl);
+    return this.http.get<Adresse>(newUrl).toPromise();
   }
 
-  createAdresse(userId: number, adresse: Adresse): Observable<Adresse> {
+  createAdresse(userId: number, adresse: Adresse): Promise<Adresse> {
     const newUrl = `${this.url}/${userId}/adresse`;
-    return this.http.post<Adresse>(newUrl, adresse);
+    return this.http.post<Adresse>(newUrl, adresse).toPromise();
   }
 
-  updateAdresse(userId: number, adresse: Adresse): Observable<Adresse> {
+  updateAdresse(userId: number, adresse: Adresse): Promise<Adresse> {
     const newUrl = `${this.url}/${userId}/adresse`;
-    return this.http.put<Adresse>(newUrl, null);
+    return this.http.put<Adresse>(newUrl, null).toPromise();
   }
 
-  deleteAdresse(userId: number): Observable<Adresse> {
+  deleteAdresse(userId: number): Promise<Adresse> {
     const newUrl = `${this.url}/${userId}/adresse`;
-    return this.http.delete<Adresse>(newUrl);
+    return this.http.delete<Adresse>(newUrl).toPromise();
   }
 
 }

@@ -17,7 +17,7 @@
       <td>{{ warenkorb.artikel.beschreibung }} {{ warenkorb.artikel.hersteller }}</td>
       <td>
         <div class="input-group">
-          <input type="number" class="form-control" [(ngModel)]="warenkorb.anzahl">
+          <input type="number" class="form-control" [(ngModel)]="warenkorb.anzahl" min="1">
           <div class="input-group-append">
             <button class="btn btn-info" (click)="onConfirm(warenkorb)">Confirm</button>
           </div>

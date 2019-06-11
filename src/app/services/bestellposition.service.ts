@@ -12,23 +12,23 @@ export class BestellpositionService {
   constructor(private http: HttpClient) {
   }
 
-  getAllBestellposition(): Observable<Bestellposition[]> {
+  getAllBestellposition(): Promise<Bestellposition[]> {
     const newUrl = `${this.url}/bestellpositions`;
-    return this.http.get<Bestellposition[]>(newUrl);
+    return this.http.get<Bestellposition[]>(newUrl).toPromise();
   }
 
-  getBestellpositionsByBestellungId(bestellungId: number): Observable<Bestellposition[]> {
+  getBestellpositionsByBestellungId(bestellungId: number): Promise<Bestellposition[]> {
     const newUrl = `${this.url}/bestellpositions/${bestellungId}`;
-    return this.http.get<Bestellposition[]>(newUrl);
+    return this.http.get<Bestellposition[]>(newUrl).toPromise();
   }
 
-  createBestellposition(bestellungId: number, artikelId: number, anzahl: number): Observable<Bestellposition> {
+  createBestellposition(bestellungId: number, artikelId: number, anzahl: number): Promise<Bestellposition> {
     const newUrl = `${this.url}/bestellpositions/${bestellungId}/${artikelId}/${anzahl}`;
-    return this.http.post<Bestellposition>(newUrl, null);
+    return this.http.post<Bestellposition>(newUrl, null).toPromise();
   }
 
-  deleteBestellposition(bestellpositionId: number): Observable<Bestellposition> {
+  deleteBestellposition(bestellpositionId: number): Promise<Bestellposition> {
     const newUrl = `${this.url}/bestellpositions/${bestellpositionId}`;
-    return this.http.delete<Bestellposition>(newUrl);
+    return this.http.delete<Bestellposition>(newUrl).toPromise();
   }
 }

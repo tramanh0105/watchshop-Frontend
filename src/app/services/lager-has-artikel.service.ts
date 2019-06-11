@@ -17,22 +17,22 @@ export class LagerHasArtikelService {
    * get all warehouses by article Id
    */
 
-  getLagers(artikelId: number): Observable<LagerHasArtikel[]> {
-    return this.http.get<LagerHasArtikel[]>(this.url);
+  getLagers(artikelId: number): Promise<LagerHasArtikel[]> {
+    return this.http.get<LagerHasArtikel[]>(this.url).toPromise();
 
   }
 
   /**
    * create new LagerHasArtikel
    */
-  createLagerHasArtikel(articleId: number, lagerId: number, bestand: number): Observable<LagerHasArtikel> {
+  createLagerHasArtikel(articleId: number, lagerId: number, bestand: number): Promise<LagerHasArtikel> {
     const newUrL = `${this.url}/lagers/${lagerId}/${bestand}`;
-    return this.http.post<LagerHasArtikel>(newUrL, null);
+    return this.http.post<LagerHasArtikel>(newUrL, null).toPromise();
   }
 
-  updateBestand(artikelId: number, lagerId: number, bestand: number):Observable<LagerHasArtikel> {
+  updateBestand(artikelId: number, lagerId: number, bestand: number): Promise<LagerHasArtikel> {
     const newUrl = `${this.url}/lagers/${lagerId}/${bestand}`;
-    return this.http.put<LagerHasArtikel>(newUrl, null);
+    return this.http.put<LagerHasArtikel>(newUrl, null).toPromise();
   }
 
 }

@@ -24,21 +24,16 @@ export class BestellungItemComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
-    this.loginService.getCurrentUser().subscribe(userFromSession => {
-      this.currentUser = userFromSession;
-
+  async ngOnInit() {
+    this.loginService.getCurrentUser().subscribe(async currentUser => {
+      this.currentUser = currentUser;
       if (this.currentUser) {
         this.bestellungId = this.route.snapshot.params.bestellungId;
-        this.bestellPositionService.getBestellpositionsByBestellungId(this.bestellungId).subscribe(bestellPositionsFromServer => {
-          this.bestellPositions = bestellPositionsFromServer;
-
-          this.calcTotalPreis();
-          console.log(this.bestellPositions);
-        });
+        this.bestellPositions = await this.bestellPositionService.getBestellpositionsByBestellungId(this.bestellungId);
+        this.calcTotalPreis();
+        console.log(this.bestellPositions);
       }
     });
-
   }
 
   calcTotalPreis() {

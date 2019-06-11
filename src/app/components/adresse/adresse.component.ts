@@ -11,13 +11,13 @@ import {User} from '../../models/User';
 })
 export class AdresseComponent implements OnInit {
   adresse: Adresse;
- @Input() user: User;
+  @Input() user: User;
 
   constructor(private adressService: AdresseService) {
   }
 
-  ngOnInit() {
-    this.adressService.getAdresse(this.user.id).subscribe(adresseFromServer => this.adresse = adresseFromServer);
+  async ngOnInit() {
+    this.adresse = await this.adressService.getAdresse(this.user.id);
   }
 
 }

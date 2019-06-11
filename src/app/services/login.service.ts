@@ -13,39 +13,40 @@ export class LoginService {
   userSource = new BehaviorSubject<User>(null);
   currentUser = this.userSource.asObservable();
 
-  constructor(private http: HttpClient, private userService: UserService) {
+  constructor(
+    private http: HttpClient,
+    private userService: UserService
+  ) {
     console.log('khoi tao login service');
 
     this.readCurrentUserFromSession();
   }
 
-  private readCurrentUserFromSession() {
+  async readCurrentUserFromSession() {
     const userId = this.readUserIdFromSession();
     if (userId) {
-      this.userService.getUserById(userId).subscribe(userFromServer => {
-        this.userSource.next(userFromServer);
-        console.log('read user from session successful: ' + userFromServer.benutzerName);
-      });
+      const userFromServer = await this.userService.getUserById(userId);
+      this.userSource.next(userFromServer);
+      console.log('read user from session successful: ' + userFromServer.benutzerName);
     } else {
       this.userSource.next(null);
     }
   }
 
-  public getCurrentUser(): Observable<User> {
+  getCurrentUser(): Observable<User> {
     return this.currentUser;
   }
 
-  public login(userLogin: UserLogin) {
-    this.http.post<User>(this.url, userLogin).subscribe(foundUser => {
+  async login(userLogin: UserLogin) {
+    const foundUser = await this.http.post<User>(this.url, userLogin).toPromise();
+    if (foundUser) {
+      console.log('User from server: ' + foundUser.benutzerName);
+      this.saveUserIdToSession(foundUser.id);
+      this.userSource.next(foundUser);
+    } else {
+      console.log('not found');
+    }
 
-      if (foundUser) {
-        console.log('User from server: ' + foundUser.benutzerName);
-        this.saveUserIdToSession(foundUser.id);
-        this.userSource.next(foundUser);
-      } else {
-        console.log('not found');
-      }
-    });
   }
 
   public logout() {

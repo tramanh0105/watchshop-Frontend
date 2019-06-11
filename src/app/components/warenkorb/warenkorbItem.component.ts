@@ -8,7 +8,9 @@ import {Warenkorb} from '../../models/Warenkorb';
 })
 export class WarenkorbItemComponent implements OnInit {
   @Input() warenkorbItem: Warenkorb;
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit() {
   }

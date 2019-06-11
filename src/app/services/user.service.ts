@@ -12,19 +12,27 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  getUserById(userId: number): Observable<User> {
+  getUserById(userId: number): Promise<User> {
     const newUrl = `${this.url}/${userId}`;
-    return this.http.get<User>(newUrl);
+    return this.http.get<User>(newUrl).toPromise();
   }
 
-  createUser(user: User, userId: number): Observable<User> {
-    const newUrl = `${this.url}/${userId}`;
-    return this.http.post<User>(newUrl, user);
+  getUsers(): Promise<User[]> {
+    return this.http.get<User[]>(this.url).toPromise();
   }
 
-  updateUser(user: User, userId: number) {
+  getUsersObservable(): Observable<User[]> {
+    return this.http.get<User[]>(this.url);
+  }
+
+  createUser(user: User, userId: number): Promise<User> {
     const newUrl = `${this.url}/${userId}`;
-    return this.http.put<User>(newUrl, user);
+    return this.http.post<User>(newUrl, user).toPromise();
+  }
+
+  updateUser(user: User, userId: number): Promise<User> {
+    const newUrl = `${this.url}/${userId}`;
+    return this.http.put<User>(newUrl, user).toPromise();
   }
 
 }

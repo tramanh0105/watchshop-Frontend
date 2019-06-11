@@ -23,18 +23,16 @@ export class BestellungsComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
-    this.loginService.getCurrentUser().subscribe(currentUser => {
+  async ngOnInit() {
+    this.loginService.getCurrentUser().subscribe(async currentUser => {
       this.currentUser = currentUser;
-      console.log(currentUser);
+
       if (this.currentUser) {
-        this.bestellungService.getBestellungsByUserId(this.currentUser.id).subscribe(bestellungsFromServer => {
-          this.bestellungs = bestellungsFromServer;
-          this.length = this.bestellungs.length;
-        });
+        this.bestellungs = await this.bestellungService.getBestellungsByUserId(this.currentUser.id);
+        console.log(this.bestellungs);
+        this.length = this.bestellungs.length;
       }
     });
-
   }
 
   redirectTo(url: string) {
@@ -42,14 +40,9 @@ export class BestellungsComponent implements OnInit {
       this.router.navigate([url]));
   }
 
-  onBezahlen(bestellung: Bestellung) {
+  async onBezahlen(bestellung: Bestellung) {
     // Change Bestellstatus of the bestellung on Server; Call PUT Request from BestellungService and reload page
-    this.bestellungService.updateBestellung(bestellung.id).subscribe(bestellungFromServer => {
-      bestellung = bestellungFromServer;
-      this.redirectTo('/bestellung');
-    });
-    // Redirect back to /bestellung with Router
-    // Tipps: this.router.navigate(['/bestellung']);
-
+    bestellung = await this.bestellungService.updateBestellung(bestellung.id);
+    this.redirectTo('/bestellung');
   }
 }

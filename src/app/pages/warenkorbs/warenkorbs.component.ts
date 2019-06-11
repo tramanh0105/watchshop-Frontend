@@ -33,20 +33,16 @@ export class WarenkorbsComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
-    this.loginService.getCurrentUser().subscribe(currentUser => {
-      // Set Current User
+  async ngOnInit() {
+    this.loginService.getCurrentUser().subscribe(async currentUser => {
       this.currentUser = currentUser;
 
-      //  Get Warenkorb from server
       if (this.currentUser) {
-        this.warenkorbService.getWarenkorbsByUserId(this.currentUser.id).subscribe(warenkorbsFromServer => {
-          this.warenkorbs = warenkorbsFromServer;
-          console.log('warenkorbs from server: ' + this.warenkorbs);
+        this.warenkorbs = await this.warenkorbService.getWarenkorbsByUserId(this.currentUser.id);
+        console.log(this.warenkorbs);
 
-          // Calc total preis
-          this.calcTotalPreis();
-        });
+        // Calc total preis
+        this.calcTotalPreis();
       }
     });
   }
@@ -62,56 +58,43 @@ export class WarenkorbsComponent implements OnInit {
   /**
    * Event Handle for changing Anzahl of on article
    */
-  onConfirm(warenkorb: Warenkorb) {
+  async onConfirm(warenkorb: Warenkorb) {
     // Update on UI
     this.calcTotalPreis();
 
     // Update on Server; Call Put Request from WarenkorbService
     //  Todo
+    warenkorb = await this.warenkorbService.updateWarenkorb(warenkorb.artikel.id, warenkorb.user.id, warenkorb.anzahl);
     console.log(warenkorb);
-    this.warenkorbService.updateWarenkorb(warenkorb.artikel.id, warenkorb.user.id, warenkorb.anzahl).subscribe(warenkorbFromServer => {
-      warenkorb = warenkorbFromServer;
-    });
-
   }
 
   /**
    * Event Handle when clicking Delete Button to remove one article from the Warenkorb
    */
-  onDelete(warenkorb: Warenkorb) {
+  async onDelete(warenkorb: Warenkorb) {
     // Todo Update on UI
     this.warenkorbs = this.warenkorbs.filter(w => w.id !== warenkorb.id);
     this.calcTotalPreis();
     // Todo Update on Server: Call Delete Request from WarenkorbService
-    this.warenkorbService.deleteWarenkorb(warenkorb.artikel.id, warenkorb.user.id).subscribe(warenkorbFromServer => {
-      warenkorb = warenkorbFromServer;
-    });
+    warenkorb = await this.warenkorbService.deleteWarenkorb(warenkorb.artikel.id, warenkorb.user.id);
+    console.log(warenkorb);
   }
 
-  onBestellen() {
+  async onBestellen() {
     // Todo
     // Transfer all items from Warenkorb to Bestellung
     // Call POST Request in BestellungSerivce
-    this.bestellungService.createBestellung(this.currentUser.id).subscribe(newBestellungFromServer => {
-      this.newBestellung = newBestellungFromServer;
-      this.warenkorbs.forEach(w => {
-        this.bestellpositionService.createBestellposition(this.newBestellung.id, w.artikel.id, w.anzahl).subscribe(newBestellPosition => {
-          console.log(newBestellPosition);
-        });
-      });
-
-      // Clear Warenkorb from Server; Call Delete Request
-      this.warenkorbs.forEach(w => {
-        this.warenkorbService.deleteWarenkorb(w.artikel.id, this.currentUser.id).subscribe();
-      });
-
-      this.router.navigate(['/bestellung']);
+    this.newBestellung = await this.bestellungService.createBestellung(this.currentUser.id);
+    this.warenkorbs.forEach(async w => {
+      const newBestellPosition = await this.bestellpositionService.createBestellposition(this.newBestellung.id, w.artikel.id, w.anzahl);
+      console.log(newBestellPosition);
     });
 
+    this.warenkorbs.forEach(async w => {
+      const deletedWarenkorb = await this.warenkorbService.deleteWarenkorb(w.artikel.id, this.currentUser.id);
+      console.log(deletedWarenkorb);
+    });
 
-    // // Clear Warenkorb from UI
-    // while (this.warenkorbs.length > 0) {
-    //   this.warenkorbs.pop();
-    // }
+    this.router.navigate(['/bestellung']);
   }
 }

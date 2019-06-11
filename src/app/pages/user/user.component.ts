@@ -14,21 +14,20 @@ export class UserComponent implements OnInit {
   currentUser: User;
   adresseCurrentUser: Adresse;
 
-  constructor(private loginService: LoginService, private adresseService: AdresseService) {
+  constructor(
+    private loginService: LoginService,
+    private adresseService: AdresseService
+  ) {
   }
 
-  ngOnInit() {
-    this.loginService.getCurrentUser().subscribe(currentUserFromServer => {
-      this.currentUser = currentUserFromServer;
-      console.log(this.currentUser);
-      if (this.currentUser) {
-        this.adresseService.getAdresse(this.currentUser.id).subscribe(adresseFromServer => {
-          this.adresseCurrentUser = adresseFromServer;
-          console.log(adresseFromServer);
-        });
-      }
+  async ngOnInit() {
+    this.loginService.getCurrentUser().subscribe(async currentUser => {
+      this.currentUser = currentUser;
 
+      if (this.currentUser) {
+        this.adresseCurrentUser = await this.adresseService.getAdresse(this.currentUser.id);
+        console.log(this.adresseCurrentUser);
+      }
     });
   }
-
 }

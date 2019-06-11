@@ -5,6 +5,7 @@ import {User} from '../../models/User';
 import {LoginService} from '../../services/login.service';
 import {Warenkorb} from '../../models/Warenkorb';
 import {WarenkorbService} from '../../services/warenkorb.service';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-artikels',
@@ -16,25 +17,27 @@ export class ArticlesComponent implements OnInit {
   currentUser: User;
   warenkorbs: Warenkorb[];
 
-  constructor(private articleService: ArtikelService, private loginService: LoginService, private warenkorbService: WarenkorbService) {
+  constructor(
+    private articleService: ArtikelService,
+    private loginService: LoginService,
+    private warenkorbService: WarenkorbService,
+    private userService: UserService
+  ) {
   }
 
-  ngOnInit() {
-    this.loginService.getCurrentUser().subscribe(currentUser => {
+  async ngOnInit() {
+    this.artikels = await this.articleService.getArtikels();
+    console.log(this.artikels);
+
+    this.loginService.getCurrentUser().subscribe(async currentUser => {
       this.currentUser = currentUser;
 
       if (this.currentUser !== null) {
-        this.warenkorbService.getWarenkorbsByUserId(this.currentUser.id).subscribe(warenkorbFromServer => {
-          this.warenkorbs = warenkorbFromServer;
-          console.log('warenkorbs from user ' + this.warenkorbs);
-        });
+        this.warenkorbs = await this.warenkorbService.getWarenkorbsByUserId(this.currentUser.id);
+        console.log(this.warenkorbs);
       }
-      this.articleService.getArtikels().subscribe(artikels => {
-
-        this.artikels = artikels;
-        console.log(this.artikels);
-      });
     });
+
   }
 
   /**
@@ -55,7 +58,7 @@ export class ArticlesComponent implements OnInit {
   /**
    * Event Handle for adding one Article to the Warenkorb
    */
-  onAddToWarenkorb($event: { artikel: Artikel; newAnzahl: number }) {
+  async onAddToWarenkorb($event: { artikel: Artikel; newAnzahl: number }) {
     console.log($event);
     const artikel = $event.artikel;
     const newAnzahl = $event.newAnzahl;
@@ -63,6 +66,7 @@ export class ArticlesComponent implements OnInit {
     // Check if the artikel already in the user's Warenkorb
     if (this.checkWarenkorbExisted(artikel)) {
       let warenkorb: Warenkorb = null;
+
       // Update the original Anzahl
       this.warenkorbs.forEach(w => {
         if (w.artikel.id === artikel.id) {
@@ -72,15 +76,13 @@ export class ArticlesComponent implements OnInit {
       });
 
       // Call PUT Request
-      this.warenkorbService.updateWarenkorb(artikel.id, this.currentUser.id, warenkorb.anzahl).subscribe(updatedWarenkorbFromServer => {
-        console.log('updated bestellPosition: ' + updatedWarenkorbFromServer.id + ' updated anzahl: ' + updatedWarenkorbFromServer.anzahl);
-      });
+      const updatedWarenkorbFromServer = await this.warenkorbService.updateWarenkorb(artikel.id, this.currentUser.id, warenkorb.anzahl);
+      console.log('updated bestellPosition: ' + updatedWarenkorbFromServer.id + ' updated anzahl: ' + updatedWarenkorbFromServer.anzahl);
     } else {
 
       // Call POST Request
-      this.warenkorbService.createWarenkorb(artikel.id, this.currentUser.id, newAnzahl).subscribe(newWarenkorbFromServer => {
-        console.log('created bestellPosition: ' + newWarenkorbFromServer.id + ' new anzahl: ' + newWarenkorbFromServer.anzahl);
-      });
+      const newWarenkorbFromServer = await this.warenkorbService.createWarenkorb(artikel.id, this.currentUser.id, newAnzahl);
+      console.log('created bestellPosition: ' + newWarenkorbFromServer.id + ' new anzahl: ' + newWarenkorbFromServer.anzahl);
     }
   }
 }

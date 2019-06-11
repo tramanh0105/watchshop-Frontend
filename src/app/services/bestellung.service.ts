@@ -15,37 +15,34 @@ export class BestellungService {
   /**
    * get all bestellungs from Server
    */
-  getAllBestellung(): Observable<Bestellung[]> {
+  getAllBestellung(): Promise<Bestellung[]> {
     const newUrl = `${this.url}/bestellungs`;
-    return this.http.get<Bestellung[]>(newUrl);
+    return this.http.get<Bestellung[]>(newUrl).toPromise();
   }
 
-  getBestellungsByUserId(userId: number): Observable<Bestellung[]> {
+  getBestellungsByUserId(userId: number): Promise<Bestellung[]> {
     const newUrl = `${this.url}/users/${userId}/bestellungs`;
-    return this.http.get<Bestellung[]>(newUrl);
+    return this.http.get<Bestellung[]>(newUrl).toPromise();
   }
 
-  /**
-   * find Bestellung by Id
-   */
-  findBestellungById(bestellungId: number): Observable<Bestellung> {
+  findBestellungById(bestellungId: number): Promise<Bestellung> {
     const newUrl = `${this.url}/bestellungs/${bestellungId}`;
-    return this.http.get<Bestellung>(newUrl);
+    return this.http.get<Bestellung>(newUrl).toPromise();
   }
 
-  createBestellung(userId: number): Observable<Bestellung> {
+  createBestellung(userId: number): Promise<Bestellung> {
     const newUrl = `${this.url}/bestellungs/${userId}`;
-    return this.http.post<Bestellung>(newUrl, null);
+    return this.http.post<Bestellung>(newUrl, null).toPromise();
   }
 
   // update the status of the order
-  updateBestellung(bestellungId: number): Observable<Bestellung> {
+  updateBestellung(bestellungId: number): Promise<Bestellung> {
     const newUrl = `${this.url}/bestellungs/${bestellungId}`;
-    return this.http.put<Bestellung>(newUrl, null);
+    return this.http.put<Bestellung>(newUrl, null).toPromise();
   }
 
-  deleteBestellung(bestellungId: number): Observable<Bestellung> {
+  deleteBestellung(bestellungId: number): Promise<Bestellung> {
     const newUrl = `${this.url}/bestellungs/${bestellungId}`;
-    return this.http.delete<Bestellung>(newUrl);
+    return this.http.delete<Bestellung>(newUrl).toPromise();
   }
 }

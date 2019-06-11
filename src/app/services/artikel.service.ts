@@ -13,27 +13,27 @@ export class ArtikelService {
   constructor(private http: HttpClient) {
   }
 
-  getArtikels(): Observable<Artikel[]> {
-    return this.http.get<Artikel[]>(this.url);
+  getArtikels(): Promise<Artikel[]> {
+    return this.http.get<Artikel[]>(this.url).toPromise();
   }
 
-  createArtikel(newArtikel: Artikel): Observable<Artikel> {
-    return this.http.post<Artikel>(this.url, newArtikel);
+  createArtikel(newArtikel: Artikel): Promise<Artikel> {
+    return this.http.post<Artikel>(this.url, newArtikel).toPromise();
   }
 
-  getArtikelById(articleId: number): Observable<Artikel> {
+  getArtikelById(articleId: number): Promise<Artikel> {
     const newUrl = `${this.url}/${articleId}`;
-    return this.http.get<Artikel>(newUrl);
+    return this.http.get<Artikel>(newUrl).toPromise();
   }
 
-  updateArtikel(articleId: number, updatedArticle: Artikel): Observable<Artikel> {
+  updateArtikel(articleId: number, updatedArticle: Artikel): Promise<Artikel> {
     const newUrl = `${this.url}/${articleId}`;
-    return this.http.put<Artikel>(newUrl, updatedArticle);
+    return this.http.put<Artikel>(newUrl, updatedArticle).toPromise();
   }
 
-  deleteArtikel(articleId: number): Observable<Artikel> {
+  deleteArtikel(articleId: number): Promise<Artikel> {
     const newUrl = `${this.url}/${articleId}`;
-    return this.http.delete<Artikel>(newUrl);
+    return this.http.delete<Artikel>(newUrl).toPromise();
   }
 
 }
