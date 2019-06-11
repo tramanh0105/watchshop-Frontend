@@ -11,7 +11,6 @@ export class WarenkorbItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
   }
 
 }

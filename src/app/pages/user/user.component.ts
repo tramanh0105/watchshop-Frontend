@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from '../../services/user.service';
 import {User} from '../../models/User';
 import {LoginService} from '../../services/login.service';
+import {Adresse} from '../../models/Adresse';
+import {AdresseService} from '../../services/adresse.service';
 
 
 @Component({
@@ -11,11 +12,23 @@ import {LoginService} from '../../services/login.service';
 })
 export class UserComponent implements OnInit {
   currentUser: User;
+  adresseCurrentUser: Adresse;
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, private adresseService: AdresseService) {
   }
 
   ngOnInit() {
+    this.loginService.getCurrentUser().subscribe(currentUserFromServer => {
+      this.currentUser = currentUserFromServer;
+      console.log(this.currentUser);
+      if (this.currentUser) {
+        this.adresseService.getAdresse(this.currentUser.id).subscribe(adresseFromServer => {
+          this.adresseCurrentUser = adresseFromServer;
+          console.log(adresseFromServer);
+        });
+      }
+
+    });
   }
 
 }
