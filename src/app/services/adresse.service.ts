@@ -24,7 +24,8 @@ export class AdresseService {
 
   updateAdresse(userId: number, adresse: Adresse): Promise<Adresse> {
     const newUrl = `${this.url}/${userId}/adresse`;
-    return this.http.put<Adresse>(newUrl, null).toPromise();
+    // return this.http.put<Adresse>(newUrl, null).toPromise();
+    return this.http.put<Adresse>(newUrl, adresse).toPromise();
   }
 
   deleteAdresse(userId: number): Promise<Adresse> {

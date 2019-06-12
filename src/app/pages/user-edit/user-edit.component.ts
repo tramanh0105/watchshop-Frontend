@@ -32,13 +32,13 @@ export class UserEditComponent implements OnInit {
 
   async onSave() {
     // making a PUT request to server to update userInfo
-    this.currentUser = await this.userService.updateUser(this.newUser, this.currentUser.id);
-    // making a PUT request to server to update adresse
-    if (this.currentUser) {
-      console.log('modified ' + this.currentUser);
-      this.adresseCurrentUser = await this.adresseService.updateAdresse(this.currentUser.id, this.newAdresse);
-    }
+    // this.currentUser = await this.userService.updateUser(this.newUser, this.currentUser.id);
+    this.currentUser = await this.userService.updateUser(this.currentUser, this.currentUser.id);
+    console.log(this.currentUser);
 
+    // making a PUT request to server to update adresse
+    console.log(this.adresseCurrentUser);
+    this.adresseCurrentUser = await this.adresseService.updateAdresse(this.currentUser.id, this.adresseCurrentUser);
   }
 
 }
