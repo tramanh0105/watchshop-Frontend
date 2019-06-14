@@ -1,3 +1,15 @@
-<p>
-  register works!
-</p>
+<h2>Registration</h2>
+
+<form (ngSubmit)="onRegistrieren()">
+  <div class="form-group col-md-6 offset-3 mt-5">
+    <label for="exampleInputEmail1">Benutzername</label>
+    <input type="benutzer" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="benutzer" placeholder="mustermann" [(ngModel)]="newUser.benutzerName">
+  </div>
+  <div class="form-group col-md-6 offset-3 mt-5">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" name="password"[(ngModel)]="newUser.password">
+  </div>
+  <div class="col-md-6 offset-3 mt-5">
+    <button routerLink="/login" type="submit" class="btn btn-primary ml-2">Submit</button>
+  </div>
+</form>

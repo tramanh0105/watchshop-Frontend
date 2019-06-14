@@ -25,8 +25,8 @@ export class UserService {
     return this.http.get<User[]>(this.url);
   }
 
-  createUser(user: User, userId: number): Promise<User> {
-    const newUrl = `${this.url}/${userId}`;
+  createUser(user: User): Promise<User> {
+    const newUrl = `${this.url}`;
     return this.http.post<User>(newUrl, user).toPromise();
   }
 
