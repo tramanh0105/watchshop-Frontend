@@ -1,3 +1,17 @@
-<p>
-  register works!
-</p>
+<div class="container">
+  <h2>Registrieren</h2>
+  <div class="row" >
+    <div class="col-md-6 offset-3 mt-5">
+      <form (ngSubmit)="registrieren()">
+        <label for="userName">User Name</label>
+        <input type="text" placeholder="User Name..." class="form-control mb-2" id="userName" name="benutzerName" [(ngModel)]="newUser.benutzerName">
+
+        <label for="password">Password</label>
+        <input type="password" placeholder="password..." class="form-control mb-2" id="password" name="password" [(ngModel)]="newUser.password">
+
+        <input type="submit" class="btn btn-primary mb-2 btn-block" routerLink="/login">
+      </form>
+    </div>
+  </div>
+
+</div>

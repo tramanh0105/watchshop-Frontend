@@ -4,6 +4,7 @@ import {LoginService} from '../../services/login.service';
 import {AdresseService} from '../../services/adresse.service';
 import {Adresse} from '../../models/Adresse';
 import {UserService} from '../../services/user.service';
+import {UserDTO} from '../../models/UserDTO';
 
 @Component({
   selector: 'app-user-edit',
@@ -11,10 +12,8 @@ import {UserService} from '../../services/user.service';
   styleUrls: ['./user-edit.component.scss']
 })
 export class UserEditComponent implements OnInit {
-  currentUser: User;
+  currentUser: UserDTO;
   adresseCurrentUser: Adresse;
-  newUser: User;
-  newAdresse: Adresse;
 
   constructor(private loginService: LoginService, private adresseService: AdresseService, private userService: UserService) {
   }
