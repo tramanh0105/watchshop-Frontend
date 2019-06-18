@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../models/User';
+import {UserDTO} from '../models/UserDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +22,16 @@ export class UserService {
     return this.http.get<User[]>(this.url).toPromise();
   }
 
+  getUsersObservable(): Observable<User[]> {
+    return this.http.get<User[]>(this.url);
+  }
+
   createUser(user: User): Promise<User> {
     const newUrl = `${this.url}`;
     return this.http.post<User>(newUrl, user).toPromise();
   }
 
-  updateUser(user: User, userId: number): Promise<User> {
+  updateUser(user: UserDTO, userId: number): Promise<User> {
     const newUrl = `${this.url}/${userId}`;
     return this.http.put<User>(newUrl, user).toPromise();
   }

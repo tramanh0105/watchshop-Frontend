@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {User} from '../../models/User';
-import {UserDTO} from '../../models/UserDTO';
+
 
 @Component({
   selector: 'app-register',
@@ -10,18 +10,17 @@ import {UserDTO} from '../../models/UserDTO';
 })
 export class RegisterComponent implements OnInit {
 
-  newUser: User = new User('', '', '', '', '','');
+  newUser: User = new User('', '', '', '', '', '');
 
   constructor(private userService: UserService) {
-
   }
 
   ngOnInit() {
   }
 
   async registrieren() {
-    console.log('working');
-    this.newUser = await this.userService.createUser(this.newUser);
+    await this.userService.createUser(this.newUser);
     console.log(this.newUser);
   }
+
 }
