@@ -3,7 +3,7 @@
 <section class="container mt-3 mb-2" *ngIf="currentUser">
   <h2 class="mt-2">Edit Userinfo von {{currentUser.name}}</h2>
 
-  <form (ngSubmit)="onSave()">
+  <form>
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="inputEmail4">Email</label>
@@ -53,7 +53,7 @@
       <a routerLink="/user" class="btn btn-primary mr-4">
         <i class="fa fa-arrow-circle-left"></i> Back
       </a>
-      <button routerLink="/user" type="button" class="btn btn-outline-info">Save & Reload</button>
+      <button routerLink="/user" (click)="onSave()" type="button" class="btn btn-outline-info">Save & Reload</button>
     </div>
   </form>
 
