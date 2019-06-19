@@ -18,7 +18,7 @@ export class WarenkorbService {
 
   createWarenkorb(artikelId: number, userId: number, anzahl: number): Promise<Warenkorb> {
     const newUrl = `${this.url}/${userId}/warenkorbs/artikels/${artikelId}/${anzahl}`;
-    console.log(this.http.post<Warenkorb>(newUrl, null).toPromise());
+    // console.log(this.http.post<Warenkorb>(newUrl, null).toPromise());
     return this.http.post<Warenkorb>(newUrl, null).toPromise();
   }
 

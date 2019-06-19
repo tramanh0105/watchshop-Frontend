@@ -34,11 +34,11 @@ export class LoginComponent implements OnInit {
     if (this.warenkorbsAno.getItemFromSession() !== null) {
       this.warenkorbsArray = this.warenkorbsAno.getItemFromSession();
     }
-    this.updateWarenkorb();
   }
 
-  onSubmit() {
+  onLogin() {
     this.loginService.login(this.userLogin);
+    this.updateWarenkorb();
   }
 
   onLogout() {

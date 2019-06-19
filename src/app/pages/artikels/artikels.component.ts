@@ -83,12 +83,12 @@ export class ArticlesComponent implements OnInit {
 
         // Call PUT Request
         const updatedWarenkorbFromServer = await this.warenkorbService.updateWarenkorb(artikel.id, this.currentUser.id, warenkorb.anzahl);
-        console.log('updated bestellPosition: ' + updatedWarenkorbFromServer.id + ' updated anzahl: ' + updatedWarenkorbFromServer.anzahl);
+        console.log('updated warenkorb: ' + updatedWarenkorbFromServer.id + ' updated anzahl: ' + updatedWarenkorbFromServer.anzahl);
       } else {
 
         // Call POST Request
         const newWarenkorbFromServer = await this.warenkorbService.createWarenkorb(artikel.id, this.currentUser.id, newAnzahl);
-        console.log('created bestellPosition: ' + newWarenkorbFromServer.id + ' new anzahl: ' + newWarenkorbFromServer.anzahl);
+        console.log('created warenkorb: ' + newWarenkorbFromServer.id + ' new anzahl: ' + newWarenkorbFromServer.anzahl);
       }
     } else {
       this.addToSession(artikel, newAnzahl);
