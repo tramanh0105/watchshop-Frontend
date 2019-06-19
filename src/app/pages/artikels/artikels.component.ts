@@ -6,6 +6,7 @@ import {LoginService} from '../../services/login.service';
 import {Warenkorb} from '../../models/Warenkorb';
 import {WarenkorbService} from '../../services/warenkorb.service';
 import {UserService} from '../../services/user.service';
+import {WarenkorbsVisitorService} from '../../services/warenkorbs-visitor-service';
 
 @Component({
   selector: 'app-artikels',
@@ -15,13 +16,17 @@ import {UserService} from '../../services/user.service';
 export class ArticlesComponent implements OnInit {
   artikels: Artikel[];
   currentUser: User;
+  // warenkorb for signed-in-user
   warenkorbs: Warenkorb[];
+  // warenkorb for anonymous
+  warenkorbArray: Warenkorb[];
 
   constructor(
     private articleService: ArtikelService,
     private loginService: LoginService,
     private warenkorbService: WarenkorbService,
-    private userService: UserService
+    private userService: UserService,
+    private warenkorbAno: WarenkorbsVisitorService
   ) {
   }
 
@@ -43,10 +48,10 @@ export class ArticlesComponent implements OnInit {
   /**
    * Checking whether or not the selected artikel already warenkorbExisted in user's bestellPosition
    */
-  checkWarenkorbExisted(artikel: Artikel): boolean {
+  checkWarenkorbExisted(artikel: Artikel, warenkorbs: Warenkorb[]): boolean {
     let existed = false;
-    if (this.warenkorbs !== undefined) {
-      this.warenkorbs.forEach(w => {
+    if (warenkorbs !== null) {
+      warenkorbs.forEach(w => {
         if (w.artikel.id === artikel.id) {
           existed = true;
         }
@@ -62,27 +67,62 @@ export class ArticlesComponent implements OnInit {
     console.log($event);
     const artikel = $event.artikel;
     const newAnzahl = $event.newAnzahl;
+    // in case the user already logged in
 
-    // Check if the artikel already in the user's Warenkorb
-    if (this.checkWarenkorbExisted(artikel)) {
-      let warenkorb: Warenkorb = null;
+    if (this.currentUser !== null) { // Check if the artikel already in the user's Warenkorb
+      if (this.checkWarenkorbExisted(artikel, this.warenkorbs)) {
+        let warenkorb: Warenkorb = null;
 
-      // Update the original Anzahl
-      this.warenkorbs.forEach(w => {
-        if (w.artikel.id === artikel.id) {
-          w.anzahl += newAnzahl;
-          warenkorb = w;
-        }
-      });
+        // Update the original Anzahl
+        this.warenkorbs.forEach(w => {
+          if (w.artikel.id === artikel.id) {
+            w.anzahl += newAnzahl;
+            warenkorb = w;
+          }
+        });
 
-      // Call PUT Request
-      const updatedWarenkorbFromServer = await this.warenkorbService.updateWarenkorb(artikel.id, this.currentUser.id, warenkorb.anzahl);
-      console.log('updated bestellPosition: ' + updatedWarenkorbFromServer.id + ' updated anzahl: ' + updatedWarenkorbFromServer.anzahl);
+        // Call PUT Request
+        const updatedWarenkorbFromServer = await this.warenkorbService.updateWarenkorb(artikel.id, this.currentUser.id, warenkorb.anzahl);
+        console.log('updated bestellPosition: ' + updatedWarenkorbFromServer.id + ' updated anzahl: ' + updatedWarenkorbFromServer.anzahl);
+      } else {
+
+        // Call POST Request
+        const newWarenkorbFromServer = await this.warenkorbService.createWarenkorb(artikel.id, this.currentUser.id, newAnzahl);
+        console.log('created bestellPosition: ' + newWarenkorbFromServer.id + ' new anzahl: ' + newWarenkorbFromServer.anzahl);
+      }
     } else {
-
-      // Call POST Request
-      const newWarenkorbFromServer = await this.warenkorbService.createWarenkorb(artikel.id, this.currentUser.id, newAnzahl);
-      console.log('created bestellPosition: ' + newWarenkorbFromServer.id + ' new anzahl: ' + newWarenkorbFromServer.anzahl);
+      this.addToSession(artikel, newAnzahl);
     }
   }
+
+  addToSession(artikel: Artikel, newAnzahl: number) {
+    // create a new cart to store artikel
+    const warenkorb = new Warenkorb(null, artikel, newAnzahl);
+    this.warenkorbArray = [];
+    if (this.warenkorbAno.getItemFromSession() !== null) {
+      this.warenkorbArray = this.warenkorbAno.getItemFromSession();
+    }
+    console.log(this.warenkorbArray);
+    // check if item alreary in warenkorb
+    if (this.checkWarenkorbExisted(artikel, this.warenkorbArray)) {
+      if (this.warenkorbArray !== null) {
+        this.warenkorbArray.forEach(w => {
+          if (w.artikel.id === artikel.id) {
+            w.anzahl += newAnzahl;
+          }
+        });
+      }
+    } else {
+      this.warenkorbArray.push(warenkorb);
+    }
+    // clear sessionstorage and store the new array to it
+    this.warenkorbAno.removeItemFromSession();
+    this.warenkorbAno.setItemtoSession(this.warenkorbArray);
+  }
+
+  /**
+   * Handling cart for anonymous
+   */
+  // Todo
+  // Create a empty array of articles
 }

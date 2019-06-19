@@ -11,6 +11,7 @@ import {BestellungService} from '../../services/bestellung.service';
 import {BestellpositionService} from '../../services/bestellposition.service';
 import {Bestellung} from '../../models/Bestellung';
 import {Router} from '@angular/router';
+import {WarenkorbsVisitorService} from '../../services/warenkorbs-visitor-service';
 
 @Component({
   selector: 'app-warenkorbs',
@@ -22,14 +23,16 @@ export class WarenkorbsComponent implements OnInit {
   currentUser: User;
   totalPreis = 0;
   newBestellung: Bestellung;
+  warenkorbsArray: Warenkorb[];
+  totalPreisAno = 0;
 
-  // tslint:disable-next-line:max-line-length
   constructor(
     private warenkorbService: WarenkorbService,
     private loginService: LoginService,
+    private router: Router,
     private bestellungService: BestellungService,
     private bestellpositionService: BestellpositionService,
-    private router: Router
+    private warenkorbsAno: WarenkorbsVisitorService
   ) {
   }
 
@@ -37,12 +40,14 @@ export class WarenkorbsComponent implements OnInit {
     this.loginService.getCurrentUser().subscribe(async currentUser => {
       this.currentUser = currentUser;
 
+      this.warenkorbsArray = this.warenkorbsAno.getItemFromSession();
       if (this.currentUser) {
         this.warenkorbs = await this.warenkorbService.getWarenkorbsByUserId(this.currentUser.id);
         console.log(this.warenkorbs);
 
         // Calc total preis
         this.calcTotalPreis();
+
       }
     });
   }
@@ -63,7 +68,7 @@ export class WarenkorbsComponent implements OnInit {
     this.calcTotalPreis();
 
     // Update on Server; Call Put Request from WarenkorbService
-    //  Todo
+
     warenkorb = await this.warenkorbService.updateWarenkorb(warenkorb.artikel.id, warenkorb.user.id, warenkorb.anzahl);
     console.log(warenkorb);
   }
@@ -81,7 +86,7 @@ export class WarenkorbsComponent implements OnInit {
   }
 
   async onBestellen() {
-    // Todo
+
     // Transfer all items from Warenkorb to Bestellung
     // Call POST Request in BestellungSerivce
     this.newBestellung = await this.bestellungService.createBestellung(this.currentUser.id);

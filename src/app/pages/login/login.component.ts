@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserLogin} from '../../models/UserLogin';
 import {LoginService} from '../../services/login.service';
 import {User} from '../../models/User';
+import {WarenkorbsVisitorService} from '../../services/warenkorbs-visitor-service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   userId: number;
   currentUser: User;
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, private warenkorbsAno: WarenkorbsVisitorService) {
   }
 
   async ngOnInit() {

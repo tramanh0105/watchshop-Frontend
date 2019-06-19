@@ -34,7 +34,8 @@
     </tbody>
   </table>
   <h3>Total Price: {{ totalPreis }} Euro</h3>
-  <a *ngIf="warenkorbs" [class.disabled]="warenkorbs.length == 0" class="btn btn-outline-warning" (click)="onBestellen()">
+  <a *ngIf="warenkorbs" [class.disabled]="warenkorbs.length == 0" class="btn btn-outline-warning"
+     (click)="onBestellen()">
     <i class="fa fa-paypal"></i> Bestellen
   </a>
 </section>
@@ -43,6 +44,45 @@
   <h3>No User logged in</h3>
 </section>
 
-<section *ngIf="!warenkorbs" class="container text-center mt-5">
-  <h3>Warenkorb ist leer</h3>
+<!--<section *ngIf="!warenkorbs" class="container text-center mt-5">-->
+<!--  <h3>Warenkorb ist leer</h3>-->
+<!--</section>-->
+<section *ngIf="warenkorbsArray" class="container mt-5">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Artikelid</th>
+      <th>Beschreibung</th>
+      <th class="w-25">Anzahl</th>
+      <th>Preis</th>
+      <th>Gesamt</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let warenkorb of warenkorbsArray">
+      <td>{{warenkorb.artikel.id}}</td>
+      <td>{{ warenkorb.artikel.beschreibung }} {{ warenkorb.artikel.hersteller }}</td>
+      <td>
+        <div class="input-group">
+          <input type="number" class="form-control" [(ngModel)]="warenkorb.anzahl" min="1">
+          <div class="input-group-append">
+            <button class="btn btn-info" (click)="onConfirm(warenkorb)">Confirm</button>
+          </div>
+        </div>
+      </td>
+      <td>{{ warenkorb.artikel.preis | currency:'EUR'}}</td>
+      <td>{{ warenkorb.artikel.preis * warenkorb.anzahl | currency:'EUR'}} </td>
+      <td>
+        <a routerLink="/warenkorb" class="btn btn-danger" (click)="onDelete(warenkorb)">
+          <i class="fa fa-trash"></i>
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <h3>Total Price: {{ totalPreisAno }} Euro</h3>
+  <a *ngIf="warenkorbsArray" [class.disabled]="warenkorbsArray.length == 0" class="btn btn-outline-dark"
+  routerLink="/login">Zum Login
+  </a>
 </section>

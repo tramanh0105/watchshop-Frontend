@@ -17,7 +17,6 @@ export class LoginService {
     private http: HttpClient,
     private userService: UserService
   ) {
-    console.log('khoi tao login service');
 
     this.readCurrentUserFromSession();
   }
