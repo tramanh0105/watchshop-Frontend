@@ -6,7 +6,7 @@ import {LoginService} from '../../services/login.service';
 import {Warenkorb} from '../../models/Warenkorb';
 import {WarenkorbService} from '../../services/warenkorb.service';
 import {UserService} from '../../services/user.service';
-import {WarenkorbsVisitorService} from '../../services/warenkorbs-visitor-service';
+import {WarenkorbsVisitorService} from '../../services/warenkorb-visitor.service';
 
 @Component({
   selector: 'app-artikels',

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserLogin} from '../../models/UserLogin';
 import {LoginService} from '../../services/login.service';
 import {User} from '../../models/User';
-import {WarenkorbsVisitorService} from '../../services/warenkorbs-visitor-service';
+import {WarenkorbsVisitorService} from '../../services/warenkorb-visitor.service';
 
 @Component({
   selector: 'app-login',

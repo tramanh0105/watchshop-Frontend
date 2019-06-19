@@ -6,12 +6,11 @@ import {of} from 'rxjs';
 import {Artikel} from '../../models/Artikel';
 import {User} from '../../models/User';
 import {LoginService} from '../../services/login.service';
-import index from '@angular/cli/lib/cli';
 import {BestellungService} from '../../services/bestellung.service';
 import {BestellpositionService} from '../../services/bestellposition.service';
 import {Bestellung} from '../../models/Bestellung';
 import {Router} from '@angular/router';
-import {WarenkorbsVisitorService} from '../../services/warenkorbs-visitor-service';
+import {WarenkorbsVisitorService} from '../../services/warenkorb-visitor.service';
 
 @Component({
   selector: 'app-warenkorbs',
