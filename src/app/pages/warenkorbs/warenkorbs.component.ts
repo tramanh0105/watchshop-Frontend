@@ -23,7 +23,6 @@ export class WarenkorbsComponent implements OnInit {
   totalPreis = 0;
   newBestellung: Bestellung;
   warenkorbsArray: Warenkorb[];
-  totalPreisAno = 0;
 
   constructor(
     private warenkorbService: WarenkorbService,
@@ -42,7 +41,6 @@ export class WarenkorbsComponent implements OnInit {
       this.warenkorbsArray = this.warenkorbsAno.getItemFromSession();
       if (this.currentUser) {
         this.warenkorbs = await this.warenkorbService.getWarenkorbsByUserId(this.currentUser.id);
-        console.log(this.warenkorbs);
 
         // Calc total preis
         this.calcTotalPreis();
@@ -69,19 +67,18 @@ export class WarenkorbsComponent implements OnInit {
     // Update on Server; Call Put Request from WarenkorbService
 
     warenkorb = await this.warenkorbService.updateWarenkorb(warenkorb.artikel.id, warenkorb.user.id, warenkorb.anzahl);
-    console.log(warenkorb);
+
   }
 
   /**
    * Event Handle when clicking Delete Button to remove one article from the Warenkorb
    */
   async onDelete(warenkorb: Warenkorb) {
-    // Todo Update on UI
+
     this.warenkorbs = this.warenkorbs.filter(w => w.id !== warenkorb.id);
     this.calcTotalPreis();
-    // Todo Update on Server: Call Delete Request from WarenkorbService
+
     warenkorb = await this.warenkorbService.deleteWarenkorb(warenkorb.artikel.id, warenkorb.user.id);
-    console.log(warenkorb);
   }
 
   async onBestellen() {

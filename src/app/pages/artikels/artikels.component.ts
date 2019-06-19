@@ -32,14 +32,14 @@ export class ArticlesComponent implements OnInit {
 
   async ngOnInit() {
     this.artikels = await this.articleService.getArtikels();
-    console.log(this.artikels);
+
 
     this.loginService.getCurrentUser().subscribe(async currentUser => {
       this.currentUser = currentUser;
 
       if (this.currentUser !== null) {
         this.warenkorbs = await this.warenkorbService.getWarenkorbsByUserId(this.currentUser.id);
-        console.log(this.warenkorbs);
+
       }
     });
 

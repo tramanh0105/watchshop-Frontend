@@ -10,7 +10,6 @@ export class WarenkorbsVisitorService {
   }
 
   public setItemtoSession(warenkorbArray: Warenkorb[]) {
-    console.log(warenkorbArray);
     sessionStorage.setItem('anonymous', JSON.stringify(warenkorbArray));
   }
 
