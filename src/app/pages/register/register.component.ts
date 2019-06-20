@@ -16,7 +16,7 @@ import {Router} from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   warenkorbsArray: Warenkorb[];
-  userRegis = new UserLogin('','');
+  userRegis = new UserLogin('', '');
   newUser: User;
 
   constructor(private userService: UserService, private warenkorbsAno: WarenkorbsVisitorService,
@@ -41,10 +41,11 @@ export class RegisterComponent implements OnInit {
     // this.updateWarenkorb(this.userRegis);
     // console.log(this.userRegis);
     this.newUser = await this.registerService.register(this.userRegis);
-    console.log(this.newUser);
     // if given user not valid, reload register page
     if (!this.newUser) {
       this.redirectTo('/register');
+    }else{
+      this.updateWarenkorb(this.newUser);
     }
   }
 
