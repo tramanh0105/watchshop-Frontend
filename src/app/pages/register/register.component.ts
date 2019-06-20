@@ -4,6 +4,9 @@ import {User} from '../../models/User';
 import {Warenkorb} from '../../models/Warenkorb';
 import {WarenkorbsVisitorService} from '../../services/warenkorb-visitor.service';
 import {WarenkorbService} from '../../services/warenkorb.service';
+import {RegisterService} from '../../services/register.service';
+import {UserLogin} from '../../models/UserLogin';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -13,10 +16,13 @@ import {WarenkorbService} from '../../services/warenkorb.service';
 })
 export class RegisterComponent implements OnInit {
   warenkorbsArray: Warenkorb[];
-  newUser: User = new User('', '', '', '', '', '');
+  userRegis = new UserLogin('','');
+  newUser: User;
 
   constructor(private userService: UserService, private warenkorbsAno: WarenkorbsVisitorService,
-              private warenkorbService: WarenkorbService) {
+              private warenkorbService: WarenkorbService,
+              private registerService: RegisterService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -25,10 +31,21 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  redirectTo(url: string) {
+    this.router.navigateByUrl('', {skipLocationChange: true}).then(() =>
+      this.router.navigate([url]));
+  }
+
   async registrieren() {
-    await this.userService.createUser(this.newUser);
-    this.updateWarenkorb(this.newUser);
+    // await this.userService.createUser(this.userRegis);
+    // this.updateWarenkorb(this.userRegis);
+    // console.log(this.userRegis);
+    this.newUser = await this.registerService.register(this.userRegis);
     console.log(this.newUser);
+    // if given user not valid, reload register page
+    if (!this.newUser) {
+      this.redirectTo('/register');
+    }
   }
 
   // update carts in sessionstorage to newuser's cart

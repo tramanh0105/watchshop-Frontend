@@ -31,7 +31,7 @@ export class UserEditComponent implements OnInit {
 
   async onSave() {
     // making a PUT request to server to update userInfo
-    // this.currentUser = await this.userService.updateUser(this.newUser, this.currentUser.id);
+    // this.currentUser = await this.userService.updateUser(this.userRegis, this.currentUser.id);
     this.currentUser = await this.userService.updateUser(this.currentUser, this.currentUser.id);
     console.log(this.currentUser);
 
