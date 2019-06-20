@@ -5,6 +5,7 @@ import {User} from '../../models/User';
 import {WarenkorbsVisitorService} from '../../services/warenkorb-visitor.service';
 import {Warenkorb} from '../../models/Warenkorb';
 import {WarenkorbService} from '../../services/warenkorb.service';
+import {FlashMessagesService} from 'angular2-flash-messages';
 
 
 @Component({
@@ -21,7 +22,9 @@ export class LoginComponent implements OnInit {
 
   constructor(private loginService: LoginService,
               private warenkorbsAno: WarenkorbsVisitorService,
-              private warenkorbService: WarenkorbService) {
+              private warenkorbService: WarenkorbService,
+              private flashMessage: FlashMessagesService
+  ) {
   }
 
   async ngOnInit() {
@@ -39,15 +42,27 @@ export class LoginComponent implements OnInit {
 
   }
 
-  onLogin() {
-    this.loginService.login(this.userLogin);
+  async onLogin() {
+    const userFromServer = await this.loginService.login(this.userLogin);
+    // Show login Notification
+    if (userFromServer) {
+      this.flashMessage.show('Login successfully...', {
+        cssClass: 'alert-success',
+        timeout: 2000
+      });
+    } else {
+      this.flashMessage.show('No User found...', {
+        cssClass: 'alert-danger',
+        timeout: 2000
+      });
+    }
+
     this.loginService.getCurrentUser().subscribe(userFromSession => {
       this.currentUser = userFromSession;
       if (this.currentUser) {
         this.updateWarenkorb(this.currentUser);
       }
     });
-
   }
 
   onLogout() {

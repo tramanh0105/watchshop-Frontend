@@ -23,13 +23,16 @@
         <li class="navbar-item">
           <a routerLink="bestellung" class="nav-link">Bestellung</a>
         </li>
-        <li class="navbar-item">
+        <li class="navbar-item" *ngIf="currentUser">
           <a routerLink="user" class="nav-link">User Info</a>
         </li>
-        <li class="navbar-item">
+        <li class="navbar-item" *ngIf="!currentUser">
           <a routerLink="login" class="nav-link">Login</a>
         </li>
-        <li class="navbar-item">
+        <li class="navbar-item" *ngIf="currentUser">
+          <a routerLink="login" class="nav-link">Logout</a>
+        </li>
+        <li class="navbar-item" *ngIf="!currentUser">
           <a routerLink="register" class="nav-link">Register</a>
         </li>
       </ul>

@@ -36,16 +36,17 @@ export class LoginService {
     return this.currentUser;
   }
 
-  async login(userLogin: UserLogin) {
+  async login(userLogin: UserLogin): Promise<User> {
     const foundUser = await this.http.post<User>(this.url, userLogin).toPromise();
     if (foundUser) {
       console.log('User from server: ' + foundUser.benutzerName);
       this.saveUserIdToSession(foundUser.id);
       this.userSource.next(foundUser);
+      return foundUser;
     } else {
       console.log('not found');
+      return null;
     }
-
   }
 
   public logout() {
