@@ -15,6 +15,7 @@ export class RegisterService {
   }
 
   register(userLogin: UserLogin): Promise<User> {
-    return this.http.put<User>(this.url, userLogin).toPromise<User>();
+    // return this.http.put<User>(this.url, userLogin).toPromise<User>();
+    return this.http.post<User>(this.url, userLogin).toPromise<User>();
   }
 }
