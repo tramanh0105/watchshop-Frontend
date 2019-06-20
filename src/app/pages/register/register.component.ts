@@ -7,6 +7,7 @@ import {WarenkorbService} from '../../services/warenkorb.service';
 import {RegisterService} from '../../services/register.service';
 import {UserLogin} from '../../models/UserLogin';
 import {Router} from '@angular/router';
+import {FlashMessagesService} from 'angular2-flash-messages';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class RegisterComponent implements OnInit {
   constructor(private userService: UserService, private warenkorbsAno: WarenkorbsVisitorService,
               private warenkorbService: WarenkorbService,
               private registerService: RegisterService,
-              private router: Router) {
+              private router: Router,
+              private flashMessage: FlashMessagesService) {
   }
 
   ngOnInit() {
@@ -43,8 +45,12 @@ export class RegisterComponent implements OnInit {
     this.newUser = await this.registerService.register(this.userRegis);
     // if given user not valid, reload register page
     if (!this.newUser) {
+      this.flashMessage.show('Eingegebene Benutzername ist bereits vergeben', {
+        cssClass: 'alert-danger',
+        timeout: 3000
+      });
       this.redirectTo('/register');
-    }else{
+    } else {
       this.updateWarenkorb(this.newUser);
     }
   }
