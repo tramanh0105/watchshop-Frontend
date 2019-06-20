@@ -15,7 +15,7 @@ import {FlashMessagesService} from 'angular2-flash-messages';
 })
 export class LoginComponent implements OnInit {
   userLogin: UserLogin = new UserLogin('', '');
-  warenkorbsArray: Warenkorb[];
+  // warenkorbsArray: Warenkorb[];
   userId: number;
   currentUser: User;
   warenkorbs: Warenkorb[];
@@ -23,8 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService,
               private warenkorbsAno: WarenkorbsVisitorService,
               private warenkorbService: WarenkorbService,
-              private flashMessage: FlashMessagesService
-  ) {
+              private flashMessage: FlashMessagesService) {
   }
 
   async ngOnInit() {
@@ -32,10 +31,10 @@ export class LoginComponent implements OnInit {
       this.currentUser = currentUser;
     });
 
-    if (this.warenkorbsAno.getItemFromSession() !== null) {
-      this.warenkorbsArray = this.warenkorbsAno.getItemFromSession();
-
-    }
+    // if (this.warenkorbsAno.getItemFromSession() !== null) {
+    //   // this.warenkorbsArray = this.warenkorbsAno.getItemFromSession();
+    //
+    // }
     if (this.currentUser) {
       this.warenkorbs = await this.warenkorbService.getWarenkorbsByUserId(this.currentUser.id);
     }
@@ -59,9 +58,9 @@ export class LoginComponent implements OnInit {
 
     this.loginService.getCurrentUser().subscribe(userFromSession => {
       this.currentUser = userFromSession;
-      if (this.currentUser) {
-        this.updateWarenkorb(this.currentUser);
-      }
+      // if (this.currentUser) {
+      //   this.updateWarenkorb(this.currentUser);
+      // }
     });
   }
 
@@ -70,20 +69,20 @@ export class LoginComponent implements OnInit {
   }
 
 
-  // update carts in sessionstorage to currentuser's cart
-  async updateWarenkorb(currentUser: User) {
-    if (this.warenkorbsArray !== undefined) {
-      this.warenkorbsArray.forEach(async w => {
-        console.log(currentUser);
-        // call post request to add carts from session
-        let warenkorb: Warenkorb;
-        warenkorb = await this.warenkorbService.createWarenkorb(w.artikel.id, currentUser.id, w.anzahl);
-        console.log('added:' + warenkorb);
-
-
-      });
-      // delete sessionstorage
-      this.warenkorbsAno.removeItemFromSession();
-    }
-  }
+  // // update carts in sessionstorage to currentuser's cart
+  // async updateWarenkorb(currentUser: User) {
+  //   if (this.warenkorbsArray !== undefined) {
+  //     this.warenkorbsArray.forEach(async w => {
+  //       console.log(currentUser);
+  //       // call post request to add carts from session
+  //       let warenkorb: Warenkorb;
+  //       warenkorb = await this.warenkorbService.createWarenkorb(w.artikel.id, currentUser.id, w.anzahl);
+  //       console.log('added:' + warenkorb);
+  //
+  //
+  //     });
+  //     // delete sessionstorage
+  //     this.warenkorbsAno.removeItemFromSession();
+  //   }
+  // }
 }
