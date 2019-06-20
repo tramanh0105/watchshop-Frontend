@@ -28,17 +28,26 @@ export class LoginComponent implements OnInit {
     this.loginService.getCurrentUser().subscribe(async currentUser => {
       this.currentUser = currentUser;
     });
-    if (this.currentUser) {
-      this.warenkorbs = await this.warenkorbService.getWarenkorbsByUserId(this.currentUser.id);
-    }
+
     if (this.warenkorbsAno.getItemFromSession() !== null) {
       this.warenkorbsArray = this.warenkorbsAno.getItemFromSession();
+
     }
+    // if (this.currentUser) {
+    //   this.warenkorbs = await this.warenkorbService.getWarenkorbsByUserId(this.currentUser.id);
+    // }
+
   }
 
   onLogin() {
     this.loginService.login(this.userLogin);
-    this.updateWarenkorb();
+    this.loginService.getCurrentUser().subscribe(userFromSession => {
+      this.currentUser = userFromSession;
+      if (this.currentUser) {
+        this.updateWarenkorb(this.currentUser);
+      }
+    });
+
   }
 
   onLogout() {
@@ -46,16 +55,15 @@ export class LoginComponent implements OnInit {
   }
 
   // update carts in sessionstorage to currentuser's cart
-  async updateWarenkorb() {
+  async updateWarenkorb(currentUser: User) {
     if (this.warenkorbsArray !== undefined) {
       this.warenkorbsArray.forEach(async w => {
-        // call put request to update carts
-        if (this.currentUser) {
-          console.log(this.currentUser);
-          let warenkorb: Warenkorb;
-          warenkorb = await this.warenkorbService.createWarenkorb(w.artikel.id, this.currentUser.id, w.anzahl);
-          console.log('added:' + warenkorb);
-        }
+        console.log(currentUser);
+        // call post request to add carts from session
+        let warenkorb: Warenkorb;
+        warenkorb = await this.warenkorbService.createWarenkorb(w.artikel.id, currentUser.id, w.anzahl);
+        console.log('added:' + warenkorb);
+
 
       });
       // delete sessionstorage

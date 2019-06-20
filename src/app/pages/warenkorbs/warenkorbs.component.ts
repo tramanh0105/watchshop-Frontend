@@ -66,7 +66,7 @@ export class WarenkorbsComponent implements OnInit {
 
     // Update on Server; Call Put Request from WarenkorbService
 
-    warenkorb = await this.warenkorbService.updateWarenkorb(warenkorb.artikel.id, warenkorb.user.id, warenkorb.anzahl);
+    warenkorb = await this.warenkorbService.updateWarenkorb(warenkorb.artikel.id, warenkorb.user.id, warenkorb.anzahl).catch();
 
   }
 

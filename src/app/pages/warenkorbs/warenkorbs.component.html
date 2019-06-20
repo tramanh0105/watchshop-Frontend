@@ -47,7 +47,7 @@
 <!--<section *ngIf="!warenkorbs" class="container text-center mt-5">-->
 <!--  <h3>Warenkorb ist leer</h3>-->
 <!--</section>-->
-<section *ngIf="warenkorbsArray" class="container mt-5">
+<section *ngIf="warenkorbsArray && !currentUser "  class="container mt-5">
   <table class="table table-striped">
     <thead>
     <tr>
