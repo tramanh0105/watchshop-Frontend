@@ -33,9 +33,9 @@ export class LoginComponent implements OnInit {
       this.warenkorbsArray = this.warenkorbsAno.getItemFromSession();
 
     }
-    // if (this.currentUser) {
-    //   this.warenkorbs = await this.warenkorbService.getWarenkorbsByUserId(this.currentUser.id);
-    // }
+    if (this.currentUser) {
+      this.warenkorbs = await this.warenkorbService.getWarenkorbsByUserId(this.currentUser.id);
+    }
 
   }
 
@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit {
   onLogout() {
     this.loginService.logout();
   }
+
 
   // update carts in sessionstorage to currentuser's cart
   async updateWarenkorb(currentUser: User) {
